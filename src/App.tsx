@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { StreamLayerProvider, StreamLayerSDKReact, useStreamLayer } from '@streamlayer/react'
+import '@streamlayer/react/style.css'
 
 const EventInput = () => {
   const sdk = useStreamLayer()
@@ -23,7 +24,7 @@ const EventInput = () => {
 
 function App() {
   return (
-    <StreamLayerProvider plugins={new Set()} sdkKey={import.meta.env.VITE_SDK_KEY}>
+    <StreamLayerProvider plugins={new Set()} sdkKey={import.meta.env.VITE_SDK_KEY} production={false}>
       <EventInput />
       <StreamLayerSDKReact />
     </StreamLayerProvider>

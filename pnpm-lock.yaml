@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@streamlayer/react':
-    specifier: ^0.14.1
-    version: 0.14.1(@bufbuild/protobuf@1.4.0)(@connectrpc/connect@1.1.2)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-digit-input@2.1.0)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.14.2
+    version: 0.14.2(@bufbuild/protobuf@1.4.0)(@connectrpc/connect@1.1.2)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-digit-input@2.1.0)(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -434,8 +434,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@streamlayer/react@0.14.1(@bufbuild/protobuf@1.4.0)(@connectrpc/connect@1.1.2)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-digit-input@2.1.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uA6g8nZGXGIubtiQH63CEsgVKXzD5uBwQXrOQbPPQbDnrguBmR4rPcBHAIrhRQ5vC4UdMCWvNog0sgw88yvN9Q==}
+  /@streamlayer/react@0.14.2(@bufbuild/protobuf@1.4.0)(@connectrpc/connect@1.1.2)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-digit-input@2.1.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-E9Pt7Pj8fovDQ3ZNz9n7I15Gfd00qh2XjO9Sp2FCVMxOqi/ORn/p/mXd9gPP62GHIgbKcpozSQuzA9eEMZV30g==}
     peerDependencies:
       '@nanostores/react': ^0.7.1
       '@streamlayer/sl-eslib': '*'

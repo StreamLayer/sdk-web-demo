@@ -24,7 +24,7 @@ const EventInput = () => {
 
 function App() {
   return (
-    <StreamLayerProvider plugins={new Set()} sdkKey={import.meta.env.VITE_SDK_KEY} production={false}>
+    <StreamLayerProvider plugins={new Set()} sdkKey={process.env.VITE_SDK_KEY || ''}>
       <EventInput />
       <StreamLayerSDKReact />
     </StreamLayerProvider>

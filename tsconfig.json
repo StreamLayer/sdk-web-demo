@@ -16,7 +16,10 @@
     "allowJs": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "types": [
+      "node",
+      "jest"
+    ],
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

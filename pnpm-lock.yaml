@@ -6,8 +6,11 @@ settings:
 
 dependencies:
   '@streamlayer/react':
-    specifier: ^0.17.0
-    version: 0.17.0(@connectrpc/connect-web@1.1.3)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-auth-code-input@3.2.1)(react-dom@18.2.0)(react-phone-number-input@3.3.7)(react@18.2.0)
+    specifier: ^0.18.1
+    version: 0.18.1(@connectrpc/connect-web@1.1.3)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-auth-code-input@3.2.1)(react-dom@18.2.0)(react-phone-number-input@3.3.7)(react@18.2.0)
+  '@streamlayer/sdk-web-anonymous-auth':
+    specifier: ^0.7.0
+    version: 0.7.0(jose@5.0.1)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -1106,8 +1109,8 @@ packages:
       '@sinonjs/commons': 3.0.0
     dev: true
 
-  /@streamlayer/react@0.17.0(@connectrpc/connect-web@1.1.3)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-auth-code-input@3.2.1)(react-dom@18.2.0)(react-phone-number-input@3.3.7)(react@18.2.0):
-    resolution: {integrity: sha512-hnw1OIfJwxqh98Q3c16WvhN/PvP5l0kTs4qqqpkJr/N370WoFSJzvTuF6fNDpBE9cGSWSgkrw/A9H8zVmkqQEA==}
+  /@streamlayer/react@0.18.1(@connectrpc/connect-web@1.1.3)(@nanostores/react@0.7.1)(@streamlayer/sl-eslib@5.43.3)(nanostores@0.9.4)(react-auth-code-input@3.2.1)(react-dom@18.2.0)(react-phone-number-input@3.3.7)(react@18.2.0):
+    resolution: {integrity: sha512-olnMEQMSoPKhqNCKXm64XBfyT1I5ASLMhNi9hYx4uShjqmYMwuAF4PAjgmPLBg4GPM/6vTQ8aPmb4ZMWz4h9DQ==}
     peerDependencies:
       '@connectrpc/connect-web': ^1.1.2
       '@nanostores/react': ^0.7.1
@@ -1126,6 +1129,14 @@ packages:
       react-auth-code-input: 3.2.1(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
       react-phone-number-input: 3.3.7(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /@streamlayer/sdk-web-anonymous-auth@0.7.0(jose@5.0.1):
+    resolution: {integrity: sha512-uniZ5OnNT4Ck+kNjMNLVFDo25qPs8iIHAkfPkO8NbdQWfkOJd7Xo2Ouf7LvREuJdc/fM9d8J/UEWcd6zTxbWNQ==}
+    peerDependencies:
+      jose: '*'
+    dependencies:
+      jose: 5.0.1
     dev: false
 
   /@streamlayer/sl-eslib@5.43.3(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0):
@@ -3454,6 +3465,10 @@ packages:
       - supports-color
       - ts-node
     dev: true
+
+  /jose@5.0.1:
+    resolution: {integrity: sha512-gRVzy7s3RRdGbXmcTdlOswJOjhwPLx1ijIgAqLY6ktzFpOJxxYn4l0fC2vHaHHi4YBX/5FOL3aY+6W0cvQgpug==}
+    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

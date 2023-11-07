@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { anonymous } from '@streamlayer/sdk-web-anonymous-auth'
-import { StreamLayerProvider, StreamLayerSDKReact, useStreamLayer } from '@streamlayer/react'
+import { StreamLayerProvider, StreamLayerSDKReact, useStreamLayer, StreamLayerSDKPoints } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
 
 const EventInput = () => {
@@ -29,6 +29,7 @@ function App() {
   return (
     <StreamLayerProvider plugins={plugins} sdkKey={process.env.VITE_SDK_KEY || ''}>
       <EventInput />
+      <StreamLayerSDKPoints />
       <StreamLayerSDKReact />
     </StreamLayerProvider>
   )

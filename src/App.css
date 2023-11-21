@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background: #F2F2F1;
 }
 
 .logo {
@@ -39,4 +40,21 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.auth-form {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 10px;
+}
+
+.points {
+  position: fixed;
+  top: 0;
+  left: 0;
 }

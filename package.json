@@ -11,8 +11,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@streamlayer/react": "^0.27.1",
-    "@streamlayer/sdk-web-anonymous-auth": "^0.11.10",
+    "@streamlayer/react": "^0.28.4",
+    "@streamlayer/sdk-web-anonymous-auth": "^0.11.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

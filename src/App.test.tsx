@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-
+import 'intersection-observer';
 import App from "./App";
 
 describe("App", () => {

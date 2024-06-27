@@ -85,7 +85,7 @@ function App() {
           <StreamLayerSDKPoints />
         </div>
         <StreamLayerLogin token={user.token} schema={user.schema} />
-        <StreamLayerSDKReact event={event}/>
+        <StreamLayerSDKReact event={event} />
       </StreamLayerProvider>
     </div>
   )

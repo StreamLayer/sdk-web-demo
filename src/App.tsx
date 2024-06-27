@@ -1,12 +1,37 @@
 import './App.css'
 import { useState } from 'react'
-import { MastersStreamLayerProvider, MastersStreamLayerSDKReact } from '@streamlayer/react/masters'
+import { StreamLayerProvider, StreamLayerSDKReact, DeepLinkCallback, VideoPlayerCallback } from '@streamlayer/react'
 import { StreamLayerSDKPoints } from '@streamlayer/react/points'
 import { StreamLayerLogin } from '@streamlayer/react/auth'
 import '@streamlayer/react/style.css'
 
+const SDK_KEY = process.env.VITE_SDK_KEY || ''
+const PRODUCTION = process.env.VITE_PRODUCTION === 'true'
+const EVENT_ID = process.env.VITE_EVENT_ID || ''
+
+const cb: DeepLinkCallback = (params) => {
+  console.log('DeepLinkUrlParams', params)
+  // enable FG+
+}
+
+type VideoPlayerData = {
+  muted: boolean
+}
+
+const toggleVideoVolume: VideoPlayerCallback = ({ muted }: VideoPlayerData) => {
+  console.log('ToggleVideoVolume', muted)
+  const player = document.getElementsByTagName('video')[0] as HTMLVideoElement
+
+  if (muted) {
+    player.volume = 0
+  } else {
+    player.volume = 1
+  }
+}
+
 function App() {
   const [user, setUser] = useState({ token: '', schema: '' })
+  const [event, setEventId] = useState('')
 
   const submitUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -18,35 +43,50 @@ function App() {
     setUser({ token, schema })
   }
 
+  const activateEvent = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+
+    const event = data.get('event') as string
+
+    setEventId(event)
+  }
+
+
   return (
     <div className='app-div'>
-      <form className='auth-form' onSubmit={submitUser}>
-        <div>
-          <label htmlFor="token">token</label>
-          <input type="text" id="token" name="token" />
-        </div>
-        <div>
-          <label htmlFor="schema">schema</label>
-          <input type="text" id="schema" name="schema" />
-        </div>
-        <div>
-          <button type="submit">submit</button>
-        </div>
-      </form>
-      <MastersStreamLayerProvider sdkKey={process.env.VITE_SDK_KEY || ''}>
+      <div className='auth-form'>
+        <form onSubmit={submitUser}>
+          <div>
+            <label htmlFor="token">token</label>
+            <input type="text" id="token" name="token" />
+          </div>
+          <div>
+            <label htmlFor="schema">schema</label>
+            <input type="text" id="schema" name="schema" />
+          </div>
+          <div>
+            <button type="submit">submit</button>
+          </div>
+        </form>
+        <form onSubmit={activateEvent}>
+          <div>
+            <label htmlFor="event">event</label>
+            <input type="text" id="event" name="event" defaultValue={EVENT_ID} />
+          </div>
+          <div>
+            <button type="submit">activate</button>
+          </div>
+        </form>
+      </div>
+
+      <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} onDeepLinkHandled={cb} videoPlayerController={toggleVideoVolume}>
         <div className='points'>
           <StreamLayerSDKPoints />
         </div>
         <StreamLayerLogin token={user.token} schema={user.schema} />
-        <MastersStreamLayerSDKReact>
-            {({ activateEventWithId, deactivate }) => (
-              <div>
-                <button onClick={() => activateEventWithId('733')}>enable</button>
-                <button onClick={deactivate}>disable</button>
-              </div>
-            )}
-          </MastersStreamLayerSDKReact>
-      </MastersStreamLayerProvider>
+        <StreamLayerSDKReact event={event}/>
+      </StreamLayerProvider>
     </div>
   )
 }

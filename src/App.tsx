@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react'
 import { StreamLayerProvider, StreamLayerSDKReact, DeepLinkCallback, VideoPlayerCallback } from '@streamlayer/react'
 import { StreamLayerSDKPoints } from '@streamlayer/react/points'
+import { StreamLayerSDKAdvertisement } from '@streamlayer/react/advertisement'
 import { StreamLayerLogin } from '@streamlayer/react/auth'
 import '@streamlayer/react/style.css'
 
@@ -31,7 +32,7 @@ const toggleVideoVolume: VideoPlayerCallback = ({ muted }: VideoPlayerData) => {
 
 function App() {
   const [user, setUser] = useState({ token: '', schema: '' })
-  const [event, setEventId] = useState('')
+  const [event, setEventId] = useState('4352')
 
   const submitUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,7 +52,6 @@ function App() {
 
     setEventId(event)
   }
-
 
   return (
     <div className='app-div'>
@@ -80,12 +80,17 @@ function App() {
         </form>
       </div>
 
-      <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} onDeepLinkHandled={cb} videoPlayerController={toggleVideoVolume}>
+      <StreamLayerProvider onContentActivate={(params) => console.log('content action', params)} sdkKey={SDK_KEY} production={PRODUCTION} onDeepLinkHandled={cb} videoPlayerController={toggleVideoVolume}>
         <div className='points'>
           <StreamLayerSDKPoints />
         </div>
         <StreamLayerLogin token={user.token} schema={user.schema} />
         <StreamLayerSDKReact event={event} />
+        <div className="advertisement">
+          <StreamLayerSDKAdvertisement event={event} sidebar='left' persistent />
+          <StreamLayerSDKAdvertisement event={event} banner='bottom' persistent />
+          <StreamLayerSDKAdvertisement event={event} persistent />
+        </div>
       </StreamLayerProvider>
     </div>
   )

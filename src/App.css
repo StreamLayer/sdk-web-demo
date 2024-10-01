@@ -60,3 +60,9 @@
   top: 0;
   left: 0;
 }
+
+.advertisement {
+  width: 100vw;
+  height: 100vh;
+  background: gray;
+}

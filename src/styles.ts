@@ -18,6 +18,8 @@ export const VideoContainer = styled.div`
     align-items: center;
     flex-direction: column;
     position: relative;
+    justify-content: center;
+    width: 100%;
 `
 
 export const AppContainer = styled.div`
@@ -32,8 +34,8 @@ export const Overlay = styled.div`
     z-index: 11;
     background: transparent;
     flex-shrink: 0;
-    max-width: 294px;
-    max-height: min(369px, calc(100dvh - 90px));
+    max-width: 418px;
+    max-height: min(470px, calc(100dvh - 90px));
     display: flex;
     border-radius: 24px;
     border: 0.5px solid rgba(255, 255, 255, 0.40);
@@ -58,7 +60,7 @@ export const Banner = styled.div`
 `
 
 export const SideBar = styled.div`
-    max-width: 300px;
+    max-width: 450px;
     border-left: 1px solid rgba(255, 255, 255, 0.20);
     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 `
@@ -106,7 +108,8 @@ export const LinkToStudioLogo = styled.img`
 export const Controls = styled.div`
     display: flex;
     align-items: center;
-    gap: 10px;
+    border-radius: 50px;
+    background: rgba(29, 123, 255, 0.10);
 `
 
 export const ControlButton = styled.button<{ active: boolean }>`
@@ -125,14 +128,14 @@ export const ControlButton = styled.button<{ active: boolean }>`
     gap: 4px;
     line-height: 28px;
     letter-spacing: -0.32px;
-    border-radius: 48px;
-    background: rgba(29, 123, 255, 0.10);
-    opacity: 0.2;
+    border-radius: 50px;
+    background-color: transparent;
 
-    &:hover {
-        background: rgb(29, 123, 255);
-        color: rgb(232, 242, 255);
-    }
+    ${({ active }) => !active && `
+        &:hover {
+            opacity: 0.5;
+        }
+    `}
 
     &:focus {
         outline: none;
@@ -142,7 +145,7 @@ export const ControlButton = styled.button<{ active: boolean }>`
         background: linear-gradient(99deg, rgba(255, 255, 255, 0.00) 3.5%, rgba(255, 255, 255, 0.75) 35.2%, rgba(255, 255, 255, 0.90) 48.49%, rgba(255, 255, 255, 0.75) 66.48%, rgba(255, 255, 255, 0.00) 93.48%), #1D7BFF;
         background-blend-mode: soft-light, normal;
         color: #fff;
-        opacity: 1;
+        cursor: default;
     `}
 `
 

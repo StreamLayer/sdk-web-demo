@@ -27,7 +27,7 @@ export const AppContainer = styled.div`
 
 export const Overlay = styled.div`
     position: absolute;
-    bottom: 70px;
+    bottom: 52px;
     left: 40px;
     z-index: 11;
     background: transparent;
@@ -36,7 +36,8 @@ export const Overlay = styled.div`
     max-height: min(369px, calc(100dvh - 90px));
     display: flex;
     border-radius: 24px;
-    border: 0.5px solid var(--Overlay-Stroke, rgba(255, 255, 255, 0.40));
+    border: 0.5px solid rgba(255, 255, 255, 0.40);
+    overflow: hidden;
 
     background: var(--Overlay-Material, linear-gradient(0deg, rgba(10, 14, 19, 0.20) 0%, rgba(10, 14, 19, 0.20) 100%), rgba(128, 128, 128, 0.30));
     background-blend-mode: normal, luminosity;
@@ -58,6 +59,8 @@ export const Banner = styled.div`
 
 export const SideBar = styled.div`
     max-width: 300px;
+    border-left: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 `
 
 export const NavBar = styled.nav`
@@ -66,15 +69,39 @@ export const NavBar = styled.nav`
     background: #fff;
     height: 40px;
     width: 100%;
-    padding: 8px 20px;
+    padding: 6px 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 `
 
 export const Logo = styled.img`
-    height: 100%;
+    height: 20px;
 `
+
+export const LinkToStudio = styled.a`
+    text-decoration: none;
+    color: #1D7BFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    height: 100%;
+
+    &:hover, &:visited, &:focus {
+        text-decoration: none;
+        color: #1D7BFF;
+    }
+`;
+
+export const LinkToStudioLogo = styled.img`
+    height: 100%;
+    max-height: 100%;
+`;
 
 export const Controls = styled.div`
     display: flex;
@@ -82,59 +109,40 @@ export const Controls = styled.div`
     gap: 10px;
 `
 
-const icons = {
-    'side-panel': 'https://cdn.streamlayer.io/sdk-web-demo/side-panel.png',
-    'l-bar': 'https://cdn.streamlayer.io/sdk-web-demo/l-bar.png',
-    'overlay': 'https://cdn.streamlayer.io/sdk-web-demo/overlay.png'
-}
-
-const activeIcons = {
-    'side-panel': 'https://cdn.streamlayer.io/sdk-web-demo/side-panel-active.png',
-    'l-bar': 'https://cdn.streamlayer.io/sdk-web-demo/l-bar-active.png',
-    'overlay': 'https://cdn.streamlayer.io/sdk-web-demo/overlay-active.png'
-}
-
-export const ControlButton = styled.button<{ active: boolean; name: 'side-panel' | 'l-bar' | 'overlay' }>`
-    width: 115px;
+export const ControlButton = styled.button<{ active: boolean }>`
     height: 100%;
     border: none;
-    background: rgb(232, 242, 255);
-    color: rgb(29, 123, 255);
+    color: #1D7BFF;
     cursor: pointer;
     outline: none;
     transition: all 0.3s;
-    font-size: 8px;
-    padding: 0;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0px 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4px;
-
-    &:before {
-        content: '';
-        width: 9.444px;
-        height: 4.444px;
-        display: block;
-        background: url(${({ name }) => icons[name]});
-        background-size: contain;
-    }
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    border-radius: 48px;
+    background: rgba(29, 123, 255, 0.10);
+    opacity: 0.2;
 
     &:hover {
         background: rgb(29, 123, 255);
         color: rgb(232, 242, 255);
-
-        &:before {
-            background: url(${({ name }) => activeIcons[name]});
-        }
     }
 
-    ${({ active,name }) => active && `
-        background: rgb(29, 123, 255);
-        color: rgb(232, 242, 255);
+    &:focus {
+        outline: none;
+    }
 
-        &:before {
-            background: url(${activeIcons[name]});
-        }
+    ${({ active }) => active && `
+        background: linear-gradient(99deg, rgba(255, 255, 255, 0.00) 3.5%, rgba(255, 255, 255, 0.75) 35.2%, rgba(255, 255, 255, 0.90) 48.49%, rgba(255, 255, 255, 0.75) 66.48%, rgba(255, 255, 255, 0.00) 93.48%), #1D7BFF;
+        background-blend-mode: soft-light, normal;
+        color: #fff;
+        opacity: 1;
     `}
 `
 

@@ -1,6 +1,6 @@
 import { StreamLayerProvider, useStreamLayer } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, ControlButton, Controls, Logo, NavBar, Overlay, SideBar, Video, VideoContainer } from './styles'
+import { AppContainer, Banner, Container, ControlButton, Controls, Logo, LinkToStudio, LinkToStudioLogo, NavBar, Overlay, SideBar, Video, VideoContainer } from './styles'
 import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 
@@ -40,7 +40,11 @@ function App() {
           <ControlButton active={mode==='l-bar'} name='l-bar'>L-Bar</ControlButton>
           <ControlButton active={mode==='overlay'} name='overlay'>Overlay</ControlButton>
         </Controls>
-        <div />
+        <LinkToStudio href='' target='_blank'>
+          {/* ToDo: uncomment, add src for logo */}
+          {/* <LinkToStudioLogo src="" /> */}
+            Open Studio
+          </LinkToStudio>
       </NavBar>
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION}>
         <AppContainer>
@@ -49,7 +53,7 @@ function App() {
             <Video
               src="https://storage.googleapis.com/cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4"
               muted
-              autoplay="autoplay"
+              autoPlay={true}
               loop
               playsInline
             />

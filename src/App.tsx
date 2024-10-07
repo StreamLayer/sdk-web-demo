@@ -1,12 +1,12 @@
 import { StreamLayerProvider, useStreamLayer } from '@streamlayer/react'
-import { StreamLayerSDKAdvertisement } from '@streamlayer/react/advertisement'
 import '@streamlayer/react/style.css'
 import { AppContainer, Banner, Container, ControlButton, Controls, Logo, NavBar, Overlay, SideBar, Video, VideoContainer } from './styles'
 import { useCallback, useState } from 'react'
+import { StreamLayerSDKAdvertisement } from './SDK'
 
 const SDK_KEY = process.env.VITE_SDK_KEY || ''
 const PRODUCTION = process.env.VITE_PRODUCTION === 'true'
-const EVENT_ID = process.env.VITE_EVENT_ID || ''
+export const EVENT_ID = process.env.VITE_EVENT_ID || ''
 
 const Button = () => {
   const sdk = useStreamLayer()
@@ -19,6 +19,8 @@ const Button = () => {
 
   return <button style={{ position: 'absolute', zIndex: 1 }} onClick={togglePromo}>toggle</button>
 }
+
+export type IMode = 'side-panel' | 'l-bar' | 'overlay'
 
 function App() {
   const [mode, setMode] = useState('side-panel')
@@ -58,21 +60,13 @@ function App() {
             )}
             {mode === 'overlay' && (
               <Overlay>
-                <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='left' persistent />
                 <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
               </Overlay>
             )}
           </VideoContainer>
-          {mode === 'side-panel' && (
+          {(mode === 'side-panel' || mode === 'l-bar') && (
             <SideBar>
-              <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='left' persistent />
-              <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
-            </SideBar>
-          )}
-          {mode === 'l-bar' && (
-            <SideBar>
-              <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='left' persistent />
-              <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
+              <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='right' persistent />
             </SideBar>
           )}
         </AppContainer>

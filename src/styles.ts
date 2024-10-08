@@ -110,11 +110,6 @@ export const LinkToStudio = styled.a`
     }
 `;
 
-export const LinkToStudioLogo = styled.img`
-    height: 100%;
-    max-height: 100%;
-`;
-
 export const Controls = styled.div`
     display: flex;
     align-items: center;

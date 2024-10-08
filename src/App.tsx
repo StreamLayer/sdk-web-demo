@@ -1,6 +1,6 @@
 import { StreamLayerProvider } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, ControlButton, Controls, Logo, LinkToStudio, LinkToStudioLogo, NavBar, Overlay, SideBar, Video, VideoContainer } from './styles'
+import { AppContainer, Banner, Container, ControlButton, Controls, Logo, LinkToStudio, NavBar, Overlay, SideBar, Video, VideoContainer } from './styles'
 import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 
@@ -40,8 +40,6 @@ function App() {
           <ControlButton active={mode==='overlay'} name='overlay'>Overlay</ControlButton>
         </Controls>
         <LinkToStudio href={STUDIO_LINK} target='_blank'>
-          {/* ToDo: uncomment, add src for logo */}
-          {/* <LinkToStudioLogo src="" /> */}
           Open Studio
         </LinkToStudio>
       </NavBar>

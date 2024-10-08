@@ -82,6 +82,10 @@ export const Overlay = styled.div`
         left: 16px;
         bottom: 8px;
     `)}
+
+    ${breakpointsPortrait(`
+        display: none;
+    `)}
 `
 
 export const Banner = styled.div`
@@ -108,6 +112,10 @@ export const Banner = styled.div`
         padding-top: 10px;
         padding-bottom: 10px;
     `)}
+
+    ${breakpointsPortrait(`
+        display: none;
+    `)}
 `
 
 export const SideBar = styled.div`
@@ -122,8 +130,17 @@ export const SideBar = styled.div`
     `)}
 
     ${breakpointsPortrait(`
+        display: none;
+    `)}
+`
+
+export const SideBarOverlay = styled(SideBar)`
+    display: none;
+
+    ${breakpointsPortrait(`
         width: 100%;
         max-width: 450px;
+        display: block
     `)}
 `
 
@@ -147,6 +164,7 @@ export const NavBarContainer = styled.nav<{ mobile?: boolean }>`
 
     ${breakpointsPortrait(`
         position: static;
+        top: 0;
     `)}
 
     &:hover {

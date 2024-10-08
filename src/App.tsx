@@ -1,6 +1,6 @@
 import { StreamLayerProvider } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, Overlay, SideBar, Video, VideoContainer } from './styles'
+import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer } from './styles'
 import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 import { NavBar } from './NavBar'
@@ -66,6 +66,11 @@ function App() {
             <SideBar className="Demo-SideBar">
               <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='right' persistent />
             </SideBar>
+          )}
+          {hasPromo && (
+            <SideBarOverlay className="Demo-SideBar">
+              <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
+            </SideBarOverlay>
           )}
         </AppContainer>
       </StreamLayerProvider>

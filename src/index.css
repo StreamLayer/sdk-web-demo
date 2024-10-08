@@ -12,6 +12,20 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --nav-bar-height: 40px;
+}
+
+@media only screen and (max-width: 1024px) {
+  :root {
+    --nav-bar-height: 0px;
+  }
+}
+
+@media only screen and (max-width: 1366px) and (orientation: landscape) {
+  :root {
+    --nav-bar-height: 0px;
+  }
 }
 
 a {
@@ -29,6 +43,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: rgba(0, 22, 43, 0.90);
 }
 
 h1 {
@@ -97,7 +112,7 @@ button:focus-visible {
 
   .AdvTitle {
     white-space: wrap;
-    line-height: 44px;
+    line-height: normal;
     margin-bottom: 16px;
     margin-top: 24px;
   }
@@ -120,6 +135,36 @@ button:focus-visible {
 
     & > img {
       display: none;
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    --adv-title-font-size: 20px;
+    --adv-description-font-size: 16px;
+    --adv-description-height: 20px;
+    --adv-btn-font-size: 14px;
+    --adv-btn-padding: 10px;
+
+    .AdvTitle {
+      margin-top: 18px;
+      margin-bottom: 4px;
+    }
+  }
+
+  @media only screen and (max-width: 1366px) and (orientation: landscape) {
+    --adv-title-font-size: 20px;
+    --adv-description-font-size: 16px;
+    --adv-description-height: 20px;
+    --adv-btn-font-size: 14px;
+    --adv-btn-padding: 10px;
+
+    .AdvTitle {
+      margin-top: 18px;
+      margin-bottom: 4px;
+    }
+
+    .AdvDescription {
+      margin-bottom: 18.5px;
     }
   }
 }

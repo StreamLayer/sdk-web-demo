@@ -1,5 +1,15 @@
 import styled from '@emotion/styled'
 
+const breakpoints = (value: string) => `
+    @media only screen and (max-width: 1024px) {
+        ${value}
+    }
+
+    @media only screen and (max-width: 1366px) and (orientation: landscape) {
+        ${value}
+    }
+`
+
 export const Container = styled.div`
     width: 100dvw;
     height: 100dvh;
@@ -10,6 +20,11 @@ export const Video = styled.video`
     object-fit: contain;
     width: 100%;
     aspect-ratio: 16 / 9;
+
+    ${breakpoints(`
+        max-width: 100dvw;
+        max-height: 100dvh;
+    `)}
 `
 
 export const VideoContainer = styled.div`
@@ -19,10 +34,14 @@ export const VideoContainer = styled.div`
     max-width: 100%;
     max-height: 100%;
     aspect-ratio: 16 / 9;
+
+    ${breakpoints(`
+        position: static;
+    `)}
 `
 
 export const AppContainer = styled.div`
-    height: calc(100% - 40px);
+    height: calc(100% - var(--nav-bar-height));
     width: 100%;
     display: flex;
     align-items: center;
@@ -45,6 +64,13 @@ export const Overlay = styled.div`
     > div {
         max-width: 100%;
     }
+
+    ${breakpoints(`
+        max-width: 300px;
+        max-height: min(377px, calc(100dvh - 16px));
+        left: 16px;
+        bottom: 8px;
+    `)}
 `
 
 export const Banner = styled.div`
@@ -71,21 +97,34 @@ export const Banner = styled.div`
 export const SideBar = styled.div`
     max-width: 450px;
     height: 100%;
+    background: rgba(0, 22, 43, 0.90);
     border-left: 1px solid rgba(255, 255, 255, 0.20);
     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
+
+    ${breakpoints(`
+        max-width: 300px;
+    `)}
 `
 
-export const NavBar = styled.nav`
+export const NavBarContainer = styled.nav<{ mobile?: boolean }>`
     position: sticky;
     top: 0;
     background: #fff;
-    height: 40px;
+    height: var(--nav-bar-height);
     width: 100%;
     padding: 6px 20px;
     box-sizing: border-box;
-    display: flex;
+    display: ${({ mobile }) => mobile ? 'none' : 'flex'};
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
+
+    ${breakpoints(`
+        position: absolute;
+        height: 40px;
+    `)}
+
+    ${({ mobile }) => breakpoints(mobile ? `display: flex;` : `display: none;`)}
 `
 
 export const Logo = styled.img`
@@ -154,3 +193,18 @@ export const ControlButton = styled.button<{ active: boolean }>`
     `}
 `
 
+
+export const ShowMenuBtn = styled.button`
+    border-radius: 48px;
+    background: rgba(0, 0, 0, 0.40);
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: 'SF Pro Text', Arial, Helvetica, sans-serif;
+
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+`

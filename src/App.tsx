@@ -1,8 +1,9 @@
 import { StreamLayerProvider } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, ControlButton, Controls, Logo, LinkToStudio, NavBar, Overlay, SideBar, Video, VideoContainer } from './styles'
-import { useCallback, useState } from 'react'
+import { AppContainer, Banner, Container, ControlButton, Controls, Logo, LinkToStudio, Overlay, SideBar, Video, VideoContainer } from './styles'
+import { useCallback, useEffect, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
+import { NavBar } from './NavBar'
 
 const searchParams = new URLSearchParams(window.location.search)
 
@@ -11,18 +12,19 @@ const PRODUCTION = searchParams.get('production') === undefined
   ? process.env.VITE_PRODUCTION === 'true'
   : searchParams.get('production') === 'true'
 export const EVENT_ID = searchParams.get('event_id') || process.env.VITE_EVENT_ID || ''
+const mode = searchParams.get('mode') as IMode || 'side-panel'
 
-const STUDIO_LINK = PRODUCTION ? `https://studio.streamlayer.io/events/all/id/${EVENT_ID}/moderation` : `https://studio.next.streamlayer.io/events/all/id/${EVENT_ID}/moderation`
+export const STUDIO_LINK = PRODUCTION ? `https://studio.streamlayer.io/events/all/id/${EVENT_ID}/moderation` : `https://studio.next.streamlayer.io/events/all/id/${EVENT_ID}/moderation`
 
 export type IMode = 'side-panel' | 'l-bar' | 'overlay'
 
 function App() {
   const [hasPromo, setHasPromo] = useState(false)
-  const [mode, setMode] = useState('side-panel')
 
   const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target instanceof HTMLButtonElement) {
-      setMode(e.target.name)
+      searchParams.set('mode', e.target.name)
+      window.location.search = searchParams.toString()
     }
   }, [])
 
@@ -32,17 +34,8 @@ function App() {
 
   return (
     <Container>
-      <NavBar>
-        <Logo src="https://cdn.streamlayer.io/sdk-web-demo/sl-logo.png"/>
-        <Controls onClick={toggleMode}>
-          <ControlButton active={mode==='side-panel'} name='side-panel'>Side Panel</ControlButton>
-          <ControlButton active={mode==='l-bar'} name='l-bar'>L-Bar</ControlButton>
-          <ControlButton active={mode==='overlay'} name='overlay'>Overlay</ControlButton>
-        </Controls>
-        <LinkToStudio href={STUDIO_LINK} target='_blank'>
-          Open Studio
-        </LinkToStudio>
-      </NavBar>
+      <NavBar mode={mode} toggleMode={toggleMode} />
+      <NavBar mode={mode} toggleMode={toggleMode} mobile />
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} onContentActivate={toggleHasPromo}>
         <div style={{ display: 'none' }}><StreamLayerSDKAdvertisement event={EVENT_ID} persistent /></div>
         <AppContainer>

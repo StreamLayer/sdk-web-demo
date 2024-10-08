@@ -1,7 +1,7 @@
 import { StreamLayerProvider } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, ControlButton, Controls, Logo, LinkToStudio, Overlay, SideBar, Video, VideoContainer } from './styles'
-import { useCallback, useEffect, useState } from 'react'
+import { AppContainer, Banner, Container, Overlay, SideBar, Video, VideoContainer } from './styles'
+import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 import { NavBar } from './NavBar'
 

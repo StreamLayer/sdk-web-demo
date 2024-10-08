@@ -8,43 +8,39 @@ export const Container = styled.div`
 
 export const Video = styled.video`
     object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    aspect-ratio: 16 / 9;
 `
 
 export const VideoContainer = styled.div`
-    height: 100%;
     display: flex;
-    align-items: center;
     flex-direction: column;
     position: relative;
-    justify-content: center;
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
 `
 
 export const AppContainer = styled.div`
     height: calc(100% - 40px);
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 export const Overlay = styled.div`
     position: absolute;
-    bottom: 52px;
-    left: 40px;
+    bottom: 41px;
+    left: 56px;
     z-index: 11;
     background: transparent;
     flex-shrink: 0;
-    max-width: 418px;
-    max-height: min(470px, calc(100dvh - 90px));
+    max-width: 450px;
+    max-height: min(640px, 100%);
     display: flex;
     border-radius: 24px;
-    border: 0.5px solid rgba(255, 255, 255, 0.40);
     overflow: hidden;
-
-    background: var(--Overlay-Material, linear-gradient(0deg, rgba(10, 14, 19, 0.20) 0%, rgba(10, 14, 19, 0.20) 100%), rgba(128, 128, 128, 0.30));
-    background-blend-mode: normal, luminosity;
-    /* Overlay Blur */
-    backdrop-filter: blur(50px);
 
     > div {
         max-width: 100%;
@@ -52,15 +48,29 @@ export const Overlay = styled.div`
 `
 
 export const Banner = styled.div`
-    height: 170px;
+    height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 17px;
+    padding-bottom: 17px;
+
+    > div {
+        width: 100%;
+        height: 100%;
+
+        img {
+            display: block;
+            height: 100% !important;
+            margin: auto;
+        }
+    }
 `
 
 export const SideBar = styled.div`
     max-width: 450px;
+    height: 100%;
     border-left: 1px solid rgba(255, 255, 255, 0.20);
     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 `

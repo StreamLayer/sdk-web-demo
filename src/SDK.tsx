@@ -12,7 +12,7 @@ export const StreamLayerSDKAdvertisement: React.FC<StreamLayerSDKAdvertisementPr
 
     return (
         <div className="StreamLayerSDK">
-            <StreamLayerThemeProvider>
+            <StreamLayerThemeProvider customTheme="custom-theme">
                 <StreamLayerSDKAdvertisementUI
                     sdk={sdk}
                     sidebar={sidebar}

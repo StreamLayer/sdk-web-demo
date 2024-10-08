@@ -28,6 +28,12 @@
   }
 }
 
+@media only screen and (max-width: 1024px) and (orientation: portrait) {
+  :root {
+    --nav-bar-height: 40px;
+  }
+}
+
 a {
   font-weight: 500;
   color: #646cff;

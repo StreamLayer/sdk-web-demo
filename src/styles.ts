@@ -10,6 +10,12 @@ const breakpoints = (value: string) => `
     }
 `
 
+const breakpointsPortrait = (value: string) => `
+    @media only screen and (max-width: 1024px) and (orientation: portrait) {
+        ${value}
+    }
+`
+
 export const Container = styled.div`
     width: 100dvw;
     height: 100dvh;
@@ -46,6 +52,11 @@ export const AppContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    ${breakpointsPortrait(`
+        flex-direction: column;
+        justify-content: flex-start;
+    `)}
 `
 
 export const Overlay = styled.div`
@@ -109,11 +120,16 @@ export const SideBar = styled.div`
     ${breakpoints(`
         max-width: 300px;
     `)}
+
+    ${breakpointsPortrait(`
+        width: 100%;
+        max-width: 450px;
+    `)}
 `
 
 export const NavBarContainer = styled.nav<{ mobile?: boolean }>`
     position: sticky;
-    top: 0;
+    top: -40px;
     background: #fff;
     height: var(--nav-bar-height);
     width: 100%;
@@ -129,7 +145,49 @@ export const NavBarContainer = styled.nav<{ mobile?: boolean }>`
         height: 40px;
     `)}
 
-    ${({ mobile }) => breakpoints(mobile ? `display: flex;` : `display: none;`)}
+    ${breakpointsPortrait(`
+        position: static;
+    `)}
+
+    &:hover {
+        top: 0;
+
+        .ShowMenuBtn {
+            display: none;
+        }
+    }
+
+`
+
+export const ShowMenuBtn = styled.button`
+    border-radius: 48px;
+    background: rgba(0, 0, 0, 0.40);
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: 'SF Pro Text', Arial, Helvetica, sans-serif;
+
+    position: absolute;
+    top: 46px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -50px;
+        right: -50px;
+    }
+
+    display: none;
+
+    ${breakpoints(`
+        display: block;
+    `)}
 `
 
 export const Logo = styled.img`
@@ -196,25 +254,4 @@ export const ControlButton = styled.button<{ active: boolean }>`
         color: #fff;
         cursor: default;
     `}
-`
-
-
-export const ShowMenuBtn = styled.button`
-    border-radius: 48px;
-    background: rgba(0, 0, 0, 0.40);
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-family: 'SF Pro Text', Arial, Helvetica, sans-serif;
-
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: none;
-
-    ${breakpoints(`
-        display: block;
-    `)}
 `

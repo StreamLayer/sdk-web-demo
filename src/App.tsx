@@ -35,7 +35,6 @@ function App() {
   return (
     <Container>
       <NavBar mode={mode} toggleMode={toggleMode} />
-      <NavBar mode={mode} toggleMode={toggleMode} mobile />
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} onContentActivate={toggleHasPromo}>
         <div style={{ display: 'none' }}><StreamLayerSDKAdvertisement event={EVENT_ID} persistent /></div>
         <AppContainer>

@@ -188,6 +188,10 @@ export const ShowMenuBtn = styled.button`
     ${breakpoints(`
         display: block;
     `)}
+
+    ${breakpointsPortrait(`
+        display: none;
+    `)}
 `
 
 export const Logo = styled.img`
@@ -217,6 +221,45 @@ export const Controls = styled.div`
     align-items: center;
     border-radius: 50px;
     background: rgba(29, 123, 255, 0.10);
+
+    ${breakpointsPortrait(`
+        display: none;
+    `)}
+`
+
+export const ControlsSelector = styled.select`
+    display: none;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0px;
+    padding-left: 16px;
+    padding-right: 34px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    border-radius: 50px;
+    color: #fff;
+    appearance: none;
+    outline: none !important;
+    position: relative;
+    text-align: center;
+
+    &::-ms-expand {
+        display: none;
+    }
+
+    ${breakpointsPortrait(`
+        display: flex;
+    `)}
+
+    background-color: #1D7BFF;
+    background-image: url(https://cdn.streamlayer.io/sdk-web-demo/select-arr.png);
+    background-position: right 16px center;
+    background-repeat: no-repeat;
+    background-size: 10px 6px;
 `
 
 export const ControlButton = styled.button<{ active: boolean }>`

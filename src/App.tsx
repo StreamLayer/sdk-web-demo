@@ -21,9 +21,14 @@ export type IMode = 'side-panel' | 'l-bar' | 'overlay'
 function App() {
   const [hasPromo, setHasPromo] = useState(false)
 
-  const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
     if (e.target instanceof HTMLButtonElement) {
       searchParams.set('mode', e.target.name)
+      window.location.search = searchParams.toString()
+    }
+
+    if (e.target instanceof HTMLSelectElement) {
+      searchParams.set('mode', e.target.value)
       window.location.search = searchParams.toString()
     }
   }, [])

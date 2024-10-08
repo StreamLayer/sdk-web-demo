@@ -92,6 +92,11 @@ export const Banner = styled.div`
             margin: auto;
         }
     }
+
+    ${breakpoints(`
+        padding-top: 10px;
+        padding-bottom: 10px;
+    `)}
 `
 
 export const SideBar = styled.div`
@@ -207,4 +212,9 @@ export const ShowMenuBtn = styled.button`
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    display: none;
+
+    ${breakpoints(`
+        display: block;
+    `)}
 `

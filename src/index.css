@@ -101,6 +101,9 @@ button:focus-visible {
   --adv-btn-font-size: 16px;
   --adv-sponsor-logo-size: 42px;
   --adv-btn-padding: 17px 14px 19px 14px;
+  --adv-media-shift: 24px;
+  --adv-top-indent: 12px;
+  --adv-sponsor-logo-size: 42px;
 
   .PromoOverlayContainer {
     backdrop-filter: blur(2px);

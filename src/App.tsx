@@ -38,6 +38,7 @@ function App() {
       setNotification(!!params.hasNotification)
       setPromo(params)
     } else {
+      setPromo(undefined)
       setNotification(false)
     }
   }
@@ -52,13 +53,14 @@ function App() {
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} onContentActivate={toggleHasPromo}>
         <div style={{ display: 'none' }}><StreamLayerSDKAdvertisement event={EVENT_ID} persistent /></div>
         <AppContainer>
-          <VideoContainer>
+          <VideoContainer style={showPromo && mode === 'l-bar' ? { aspectRatio: 'initial' } : {}}>
             <Video
               src="https://storage.googleapis.com/cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4"
               muted
               autoPlay={true}
               loop
               playsInline
+              style={showPromo && mode === 'l-bar' ? { maxHeight: 'calc(100dvh - 95px)' } : {}}
             />
             {showPromo && mode === 'l-bar' && (
               <Banner className="Demo-Banner">

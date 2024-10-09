@@ -43,6 +43,7 @@ export const VideoContainer = styled.div`
 
     ${breakpoints(`
         position: static;
+        max-height: none;
     `)}
 `
 
@@ -100,8 +101,8 @@ export const Banner = styled.div`
     padding-bottom: 17px;
 
     > div {
+        height: 120px;
         width: 100%;
-        height: 100%;
 
         img {
             display: block;
@@ -111,8 +112,13 @@ export const Banner = styled.div`
     }
 
     ${breakpoints(`
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding: 0;
+        min-height: 95px;
+        height: 100%;
+
+        > div {
+            height: 75px;
+        }
     `)}
 
     ${breakpointsPortrait(`
@@ -138,6 +144,8 @@ export const SideBar = styled.div`
 
 export const SideBarOverlay = styled(SideBar)`
     display: none;
+    border: none;
+    box-shadow: none;
 
     ${breakpointsPortrait(`
         width: 100%;

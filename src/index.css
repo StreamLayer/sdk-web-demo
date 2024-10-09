@@ -114,6 +114,14 @@ button:focus-visible {
     display: flex;
     flex-direction: column;
     row-gap: 12px;
+
+    > div:last-child {
+      margin-top: 12px;
+    }
+
+    > div:nth-child(2) {
+      overflow: auto;
+    }
   }
 
   .SponsorText {

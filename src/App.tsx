@@ -8,7 +8,7 @@ import { NavBar } from './NavBar'
 const searchParams = new URLSearchParams(window.location.search)
 
 const SDK_KEY = searchParams.get('sdk_key') || process.env.VITE_SDK_KEY || ''
-const PRODUCTION = searchParams.get('production') === undefined
+const PRODUCTION = searchParams.get('production') === null
   ? process.env.VITE_PRODUCTION === 'true'
   : searchParams.get('production') === 'true'
 export const EVENT_ID = searchParams.get('event_id') || process.env.VITE_EVENT_ID || ''

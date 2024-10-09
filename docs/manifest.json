@@ -1,6 +1,6 @@
 {
-  "short_name": "Client Dashboard",
-  "name": "StreamLayer Client Dashboard",
+  "short_name": "WebSDK Demo",
+  "name": "StreamLayer WebSDK Demo",
   "icons": [
     {
       "src": "favicon@4x.png",

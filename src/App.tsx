@@ -1,4 +1,4 @@
-import { StreamLayerProvider } from '@streamlayer/react'
+import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
 import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer, Notification } from './styles'
 import { useCallback, useState } from 'react'
@@ -12,34 +12,38 @@ const PRODUCTION = searchParams.get('production') === undefined
   ? process.env.VITE_PRODUCTION === 'true'
   : searchParams.get('production') === 'true'
 export const EVENT_ID = searchParams.get('event_id') || process.env.VITE_EVENT_ID || ''
-const mode = searchParams.get('mode') as IMode || 'side-panel'
 
 export const STUDIO_LINK = PRODUCTION ? `https://studio.streamlayer.io/events/all/id/${EVENT_ID}/moderation` : `https://studio.next.streamlayer.io/events/all/id/${EVENT_ID}/moderation`
 
 export type IMode = 'side-panel' | 'l-bar' | 'overlay'
 
 function App() {
-  const [hasPromo, setHasPromo] = useState(false)
-  const [showPromo, setShowPromo] = useState(false)
+  const [mode, setMode] = useState<IMode>('side-panel')
+  const [promo, setPromo] = useState<ContentActivateParams>()
+  const [notification, setNotification] = useState(false)
+  const showPromo = promo && !notification
 
   const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
     if (e.target instanceof HTMLButtonElement) {
-      searchParams.set('mode', e.target.name)
-      window.location.search = searchParams.toString()
+      setMode(e.target.name as IMode)
     }
 
     if (e.target instanceof HTMLSelectElement) {
-      searchParams.set('mode', e.target.value)
-      window.location.search = searchParams.toString()
+      setMode(e.target.value as IMode)
     }
   }, [])
 
-  const toggleHasPromo = (params: { stage: 'activate' | 'deactivate' }) => {
-    setHasPromo(params.stage === 'activate')
+  const toggleHasPromo: OnContentActivateCallback = (params) => {
+    if (params.stage === 'activate') {
+      setNotification(!!params.hasNotification)
+      setPromo(params)
+    } else {
+      setNotification(false)
+    }
   }
 
   const showAdByNotification = () => {
-    setShowPromo(true)
+    setNotification(false)
   }
 
   return (
@@ -66,7 +70,7 @@ function App() {
                 <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
               </Overlay>
             )}
-            {hasPromo && !showPromo && <Notification className="Demo-Notification" onClick={showAdByNotification}>
+            {notification && <Notification className="Demo-Notification" onClick={showAdByNotification}>
               <StreamLayerSDKAdvertisement event={EVENT_ID} notification persistent />
             </Notification>}
           </VideoContainer>

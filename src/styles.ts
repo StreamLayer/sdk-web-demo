@@ -71,9 +71,11 @@ export const Overlay = styled.div`
     display: flex;
     border-radius: 24px;
     overflow: hidden;
+    width: 100%;
 
     > div {
         max-width: 100%;
+        width: 100%;
     }
 
     ${breakpoints(`

@@ -1,6 +1,6 @@
 import { StreamLayerProvider } from '@streamlayer/react'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer } from './styles'
+import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer, Notification } from './styles'
 import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 import { NavBar } from './NavBar'
@@ -20,6 +20,7 @@ export type IMode = 'side-panel' | 'l-bar' | 'overlay'
 
 function App() {
   const [hasPromo, setHasPromo] = useState(false)
+  const [showPromo, setShowPromo] = useState(false)
 
   const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
     if (e.target instanceof HTMLButtonElement) {
@@ -37,6 +38,10 @@ function App() {
     setHasPromo(params.stage === 'activate')
   }
 
+  const showAdByNotification = () => {
+    setShowPromo(true)
+  }
+
   return (
     <Container>
       <NavBar mode={mode} toggleMode={toggleMode} />
@@ -51,23 +56,26 @@ function App() {
               loop
               playsInline
             />
-            {hasPromo && mode === 'l-bar' && (
+            {showPromo && mode === 'l-bar' && (
               <Banner className="Demo-Banner">
                 <StreamLayerSDKAdvertisement event={EVENT_ID} banner='bottom' persistent />
               </Banner>
             )}
-            {hasPromo && mode === 'overlay' && (
+            {showPromo && mode === 'overlay' && (
               <Overlay className="Demo-Overlay">
                 <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
               </Overlay>
             )}
+            {hasPromo && !showPromo && <Notification className="Demo-Notification" onClick={showAdByNotification}>
+              <StreamLayerSDKAdvertisement event={EVENT_ID} notification persistent />
+            </Notification>}
           </VideoContainer>
-          {hasPromo && (mode === 'side-panel' || mode === 'l-bar') && (
+          {showPromo && (mode === 'side-panel' || mode === 'l-bar') && (
             <SideBar className="Demo-SideBar">
               <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='right' persistent />
             </SideBar>
           )}
-          {hasPromo && (
+          {showPromo && (
             <SideBarOverlay className="Demo-SideBar">
               <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
             </SideBarOverlay>

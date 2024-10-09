@@ -3,7 +3,7 @@ import { StreamLayerSDKAdvertisementUI, StreamLayerSDKAdvertisementProps } from 
 
 import { EVENT_ID } from "./App"
 
-export const StreamLayerSDKAdvertisement: React.FC<StreamLayerSDKAdvertisementProps> = ({ sidebar, banner }) => {
+export const StreamLayerSDKAdvertisement: React.FC<StreamLayerSDKAdvertisementProps> = ({ sidebar, banner, notification }) => {
     const sdk = useStreamLayer()
 
     if (!sdk) {
@@ -18,6 +18,7 @@ export const StreamLayerSDKAdvertisement: React.FC<StreamLayerSDKAdvertisementPr
                     sidebar={sidebar}
                     banner={banner}
                     event={EVENT_ID}
+                    notification={notification}
                     persistent
                     skipTypeCheck
                 />

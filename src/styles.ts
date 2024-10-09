@@ -316,3 +316,21 @@ export const ControlButton = styled.button<{ active: boolean }>`
         cursor: default;
     `}
 `
+
+export const Notification = styled.div`
+    position: absolute;
+    bottom: 20px;
+    left: 56px;
+
+    ${breakpoints(`
+        left: 32px;
+        bottom: -4px;
+    `)}
+
+    ${breakpointsPortrait(`
+        position: static;
+        margin-top: -35px;
+        margin-left: 8px;
+        margin-right: 8px;
+    `)}
+`

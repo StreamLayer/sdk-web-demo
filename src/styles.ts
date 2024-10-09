@@ -67,7 +67,7 @@ export const Overlay = styled.div`
     background: transparent;
     flex-shrink: 0;
     max-width: 450px;
-    max-height: min(640px, 100%);
+    max-height: min(670px, 100%);
     display: flex;
     border-radius: 24px;
     overflow: hidden;

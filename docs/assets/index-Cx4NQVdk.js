@@ -248,7 +248,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     position: relative;
     max-width: 100%;
     max-height: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
+    justify-content: space-evenly;
 
     ${md(`
         position: static;
@@ -271,7 +272,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     z-index: 11;
     background: transparent;
     flex-shrink: 0;
-    max-width: 450px;
+    max-width: 418px;
     max-height: min(640px, 100%);
     display: flex;
     border-radius: 24px;
@@ -284,7 +285,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }
 
     ${md(`
-        max-width: 300px;
+        max-width: 268px;
         max-height: min(377px, calc(100dvh - 16px));
         left: 16px;
         bottom: 8px;
@@ -294,7 +295,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         display: none;
     `)}
 `,Gue=Ur.div`
-    height: 100%;
+    height: 120px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -306,7 +307,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         width: 100%;
         height: 100%;
 
-        img {
+        a {
             display: block;
             height: 100% !important;
             margin: auto;
@@ -322,7 +323,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         display: none;
     `)}
 `,NM=Ur.div`
-    max-width: 450px;
+    max-width: 418px;
     height: 100%;
     background: rgba(0, 22, 43, 0.90);
     border-left: 1px solid rgba(255, 255, 255, 0.20);
@@ -340,7 +341,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
     ${ml(`
         width: 100%;
-        max-width: 450px;
+        max-width: 418px;
         display: block
     `)}
 `,Que=Ur.nav`

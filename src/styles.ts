@@ -39,7 +39,8 @@ export const VideoContainer = styled.div`
     position: relative;
     max-width: 100%;
     max-height: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
+    justify-content: space-evenly;
 
     ${breakpoints(`
         position: static;
@@ -66,7 +67,7 @@ export const Overlay = styled.div`
     z-index: 11;
     background: transparent;
     flex-shrink: 0;
-    max-width: 450px;
+    max-width: 418px;
     max-height: min(670px, 100%);
     display: flex;
     border-radius: 24px;
@@ -79,7 +80,7 @@ export const Overlay = styled.div`
     }
 
     ${breakpoints(`
-        max-width: 300px;
+        max-width: 268px;
         max-height: min(377px, calc(100dvh - 16px));
         left: 16px;
         bottom: 8px;
@@ -91,7 +92,7 @@ export const Overlay = styled.div`
 `
 
 export const Banner = styled.div`
-    height: 100%;
+    height: 120px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -103,7 +104,7 @@ export const Banner = styled.div`
         width: 100%;
         height: 100%;
 
-        img {
+        a {
             display: block;
             height: 100% !important;
             margin: auto;
@@ -121,7 +122,7 @@ export const Banner = styled.div`
 `
 
 export const SideBar = styled.div`
-    max-width: 450px;
+    max-width: 418px;
     height: 100%;
     background: rgba(0, 22, 43, 0.90);
     border-left: 1px solid rgba(255, 255, 255, 0.20);
@@ -141,7 +142,7 @@ export const SideBarOverlay = styled(SideBar)`
 
     ${breakpointsPortrait(`
         width: 100%;
-        max-width: 450px;
+        max-width: 418px;
         display: block
     `)}
 `

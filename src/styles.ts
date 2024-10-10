@@ -340,6 +340,12 @@ export const ShowMenuBtn = styled.button`
 
 export const Logo = styled.img`
     height: 20px;
+
+    ${breakpointsPortrait(`
+        width: 20px;
+        object-fit: cover;
+        object-position: left;
+    `)}
 `
 
 export const LinkToStudio = styled.a`
@@ -358,6 +364,12 @@ export const LinkToStudio = styled.a`
         text-decoration: none;
         color: #1D7BFF;
     }
+
+    span {
+        ${breakpointsPortrait(`
+            display: none;
+        `)}
+    }
 `;
 
 export const Controls = styled.div`
@@ -369,6 +381,22 @@ export const Controls = styled.div`
     ${breakpointsPortrait(`
         display: none;
     `)}
+`
+
+export const ControlsSelectorContainer = styled.div`
+    position: relative;
+
+    label {
+        display: block;
+        position: absolute;
+        top: calc(50% - 3px);
+        right: 16px;
+        width: 10px;
+        height: 6px;
+        background-image: url(https://cdn.streamlayer.io/sdk-web-demo/select-arr.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 `
 
 export const ControlsSelector = styled.select`
@@ -399,11 +427,8 @@ export const ControlsSelector = styled.select`
         display: flex;
     `)}
 
-    background-color: #1D7BFF;
-    background-image: url(https://cdn.streamlayer.io/sdk-web-demo/select-arr.png);
-    background-position: right 16px center;
-    background-repeat: no-repeat;
-    background-size: 10px 6px;
+    background-blend-mode: soft-light, normal;
+    background: linear-gradient(99deg, rgba(255, 255, 255, 0.00) 3.5%, rgba(255, 255, 255, 0.75) 35.2%, rgba(255, 255, 255, 0.90) 48.49%, rgba(255, 255, 255, 0.75) 66.48%, rgba(255, 255, 255, 0.00) 93.48%), #1D7BFF;
 `
 
 export const ControlButton = styled.button<{ active: boolean }>`

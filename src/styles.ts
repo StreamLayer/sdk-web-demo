@@ -397,6 +397,11 @@ export const ControlsSelectorContainer = styled.div`
         background-size: contain;
         background-repeat: no-repeat;
     }
+
+    display: none;
+    ${breakpointsPortrait(`
+        display: block;
+    `)}
 `
 
 export const ControlsSelector = styled.select`

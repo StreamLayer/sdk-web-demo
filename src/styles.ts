@@ -272,6 +272,7 @@ export const SideBarOverlay = styled(SideBar)`
 
 export const NavBarContainer = styled.nav<{ mobile?: boolean }>`
     position: sticky;
+    z-index: 12;
     top: -40px;
     background: #fff;
     height: var(--nav-bar-height);

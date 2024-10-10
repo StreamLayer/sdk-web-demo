@@ -469,6 +469,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     `)}
 `,Que=kr.nav`
     position: sticky;
+    z-index: 12;
     top: -40px;
     background: #fff;
     height: var(--nav-bar-height);

@@ -163,10 +163,20 @@ button:focus-visible {
     --adv-description-height: 20px;
     --adv-btn-font-size: 14px;
     --adv-btn-padding: 10px;
+    --adv-sponsor-logo-size: 28px;
+    --adv-header-height: 48px;
 
     .AdvTitle {
       margin-top: 18px;
       margin-bottom: 4px;
+    }
+
+    .ClosePromoIcon {
+      transform: scale(1);
+    }
+
+    .SponsorText {
+      transform: scale(1);
     }
   }
 
@@ -176,6 +186,7 @@ button:focus-visible {
     --adv-description-height: 20px;
     --adv-btn-font-size: 14px;
     --adv-btn-padding: 10px;
+    --adv-header-height: 48px;
 
     .AdvTitle {
       margin-top: 18px;
@@ -184,6 +195,14 @@ button:focus-visible {
 
     .AdvDescription {
       margin-bottom: 18.5px;
+    }
+
+    .ClosePromoIcon {
+      transform: scale(1);
+    }
+
+    .SponsorText {
+      transform: scale(1);
     }
   }
 }

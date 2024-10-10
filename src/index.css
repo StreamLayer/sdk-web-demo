@@ -141,6 +141,10 @@ button:focus-visible {
     transform-origin: right center;
   }
 
+  .PromoSidebarContainer {
+    padding-left: 0 !important;
+  }
+
   .BannerContainer {
     padding: 0;
   }

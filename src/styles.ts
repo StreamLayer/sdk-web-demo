@@ -107,6 +107,14 @@ export const Overlay = styled.div`
         width: 100%;
     }
 
+    .PromoOverlay {
+        max-height: 640px;
+
+        ${breakpoints(`
+            max-height: min(377px, calc(100dvh - 16px));
+        `)}
+    }
+
     ${breakpoints(`
         max-width: 300px;
         max-height: min(377px, calc(100dvh - 16px));
@@ -225,6 +233,15 @@ export const SideBar = styled.div`
 
     ${breakpoints(`
         max-width: 300px;
+
+        @keyframes grow-in-sidebar {
+            from {
+                max-width: 0px;
+            }
+            to {
+                max-width: 300px;
+            }
+        }
     `)}
 
     ${breakpointsPortrait(`
@@ -240,7 +257,16 @@ export const SideBarOverlay = styled(SideBar)`
     ${breakpointsPortrait(`
         width: 100%;
         max-width: 450px;
-        display: block
+        display: block;
+
+        @keyframes grow-in-sidebar {
+            from {
+                max-width: 0px;
+            }
+            to {
+                max-width: 450px;
+            }
+        }
     `)}
 `
 
@@ -422,7 +448,22 @@ export const Notification = styled.div`
     bottom: 20px;
     left: 56px;
 
+    transform: scale(1.5);
+    transform-origin: left bottom;
+    opacity: 0;
+    animation: show-notification-in .3s ease forwards 1s;
+
+    @keyframes show-notification-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
     ${breakpoints(`
+        transform: scale(1);
         left: 32px;
         bottom: -4px;
     `)}

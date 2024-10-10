@@ -82,7 +82,7 @@ function App() {
             </SideBar>
           )}
           {showPromo && (
-            <SideBarOverlay className="Demo-SideBar">
+            <SideBarOverlay className="Demo-SideBarOverlay">
               <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
             </SideBarOverlay>
           )}

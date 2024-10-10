@@ -141,7 +141,7 @@ button:focus-visible {
     transform-origin: right center;
   }
 
-  .PromoSidebarContainer {
+  .PromoSidebarContainer > div {
     padding-left: 0 !important;
   }
 

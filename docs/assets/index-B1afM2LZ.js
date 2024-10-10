@@ -279,6 +279,34 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     overflow: hidden;
     width: 100%;
 
+    .PromoOverlayContainer {
+        animation: grow-in-overlay .3s ease forwards;
+        transform-origin: bottom;
+
+        @keyframes grow-in-overlay {
+            from {
+                transform: scaleY(0);
+            }
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        > div {
+            opacity: 0;
+            animation: show-in-overlay .3s ease forwards .3s;
+
+            @keyframes show-in-overlay {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
     > div {
         max-width: 100%;
         width: 100%;
@@ -300,17 +328,53 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 17px;
-    padding-bottom: 17px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    animation: grow-in-padding .3s ease forwards .6s;
+
+    @keyframes grow-in-padding {
+        from {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+        to {
+            padding-top: 17px;
+            padding-bottom: 17px;
+        }
+    }
 
     > div {
-        height: 120px;
+        height: 0px;
+        overflow: hidden;
         width: 100%;
+        animation: grow-in .3s ease forwards .6s;
 
-        img {
+        @keyframes grow-in {
+            from {
+                height: 0px;
+            }
+            to {
+                height: 120px;
+            }
+        }
+
+        a {
             display: block;
             height: 100% !important;
             margin: auto;
+            opacity: 0;
+
+            animation: show-in .3s ease forwards .9s;
+
+            @keyframes show-in {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
         }
     }
 
@@ -328,11 +392,37 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         display: none;
     `)}
 `,NM=Ur.div`
-    max-width: 450px;
+    max-width: 0px;
+    overflow: hidden;
     height: 100%;
     background: rgba(0, 22, 43, 0.90);
     border-left: 1px solid rgba(255, 255, 255, 0.20);
     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
+
+    animation: grow-in-sidebar .6s ease forwards;
+
+    @keyframes grow-in-sidebar {
+        from {
+            max-width: 0px;
+        }
+        to {
+            max-width: 450px;
+        }
+    }
+
+    > div {
+        opacity: 0;
+        animation: show-in-sidebar .3s ease forwards .9s;
+
+        @keyframes show-in-sidebar {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    }
 
     ${md(`
         max-width: 300px;

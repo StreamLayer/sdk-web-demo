@@ -17,7 +17,7 @@ export const NavBar: React.FC<{ mode: IMode, toggleMode: (e: React.MouseEvent<HT
                 <option value='overlay' selected={mode==='overlay'}>Overlay</option>
             </ControlsSelector>
             <LinkToStudio href={STUDIO_LINK} target='_blank'>
-            <img src='https://cdn.streamlayer.io/sdk-web-demo/studio-link.svg' />
+            <img src='https://cdn.streamlayer.io/assets/sdk-web/storybook-assets/studio-link.svg' />
                 Open Studio
             </LinkToStudio>
             <ShowMenuBtn className="ShowMenuBtn">Show menu</ShowMenuBtn>

@@ -308,6 +308,7 @@ export const ShowMenuBtn = styled.button`
     background: rgba(0, 0, 0, 0.40);
     border: none;
     padding: 8px 16px;
+    color: #fff;
     font-size: 14px;
     font-family: 'SF Pro Text', Arial, Helvetica, sans-serif;
 

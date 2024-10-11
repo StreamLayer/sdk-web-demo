@@ -1,11 +1,12 @@
 import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
 // import { StreamLayerSDKInsight } from '@streamlayer/react/insight'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer, Notification } from './styles'
-import { useCallback, useState, useEffect, useRef } from 'react'
+import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, VideoContainer, Notification } from './styles'
+import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 import { NavBar } from './NavBar'
-import Hls from "hls.js";
+import { VideoComponent } from './components/VideoComponent'
+
 
 const searchParams = new URLSearchParams(window.location.search)
 
@@ -24,26 +25,6 @@ function App() {
   const [promo, setPromo] = useState<ContentActivateParams>()
   const [notification, setNotification] = useState(false)
   const showPromo = promo && !notification
-
-  const videoRef = useRef();
-
-  useEffect(()=>{
-    const hls = new Hls({
-      "debug": true
-    });
-
-    if (Hls.isSupported() && videoRef.current) {
-      // @ts-ignore
-      hls.log = true;
-      hls.loadSource('https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8');
-      hls.attachMedia(videoRef.current)
-      hls.on(Hls.Events.ERROR, (err) => {
-        console.log(err)
-      });
-    } else {
-      console.log('load')
-    }
-  },[])
 
   const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
     if (e.target instanceof HTMLButtonElement) {
@@ -79,14 +60,8 @@ function App() {
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} event={EVENT_ID} onContentActivate={toggleHasPromo}>
         <AppContainer>
           <VideoContainer style={showPromo && mode === 'l-bar' ? { aspectRatio: 'initial' } : {}}>
-            <Video
-              src="https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8"
-              muted
-              autoPlay={true}
-              // @ts-ignore
-              ref={videoRef}
-              loop
-              playsInline
+            <VideoComponent
+              src='https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8'
               style={showPromo && mode === 'l-bar' ? { maxHeight: 'calc(100dvh - 95px)' } : {}}
             />
             {showPromo && mode === 'l-bar' && (

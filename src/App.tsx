@@ -2,9 +2,10 @@ import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback }
 // import { StreamLayerSDKInsight } from '@streamlayer/react/insight'
 import '@streamlayer/react/style.css'
 import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer, Notification } from './styles'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 import { NavBar } from './NavBar'
+import Hls from "hls.js";
 
 const searchParams = new URLSearchParams(window.location.search)
 
@@ -23,6 +24,26 @@ function App() {
   const [promo, setPromo] = useState<ContentActivateParams>()
   const [notification, setNotification] = useState(false)
   const showPromo = promo && !notification
+
+  const videoRef = useRef();
+
+  useEffect(()=>{
+    const hls = new Hls({
+      "debug": true
+    });
+
+    if (Hls.isSupported() && videoRef.current) {
+      // @ts-ignore
+      hls.log = true;
+      hls.loadSource('https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8');
+      hls.attachMedia(videoRef.current)
+      hls.on(Hls.Events.ERROR, (err) => {
+        console.log(err)
+      });
+    } else {
+      console.log('load')
+    }
+  },[])
 
   const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
     if (e.target instanceof HTMLButtonElement) {
@@ -59,9 +80,11 @@ function App() {
         <AppContainer>
           <VideoContainer style={showPromo && mode === 'l-bar' ? { aspectRatio: 'initial' } : {}}>
             <Video
-              src="https://storage.googleapis.com/cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4"
+              src="https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8"
               muted
               autoPlay={true}
+              // @ts-ignore
+              ref={videoRef}
               loop
               playsInline
               style={showPromo && mode === 'l-bar' ? { maxHeight: 'calc(100dvh - 95px)' } : {}}

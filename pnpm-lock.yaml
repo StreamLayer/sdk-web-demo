@@ -511,7 +511,7 @@ packages:
     peerDependencies:
       '@bufbuild/protobuf': ^1.10.0
     dependencies:
-      '@bufbuild/protobuf': 2.2.0
+      '@bufbuild/protobuf': 1.10.0
     dev: false
 
   /@emotion/babel-plugin@11.12.0:
@@ -1180,24 +1180,24 @@ packages:
       react: 18.3.1
     dev: false
 
-  /@nanostores/query@0.3.4(nanostores@0.11.3):
-    resolution: {integrity: sha512-Gw5HsKflUDefhcZpVwVoIfw2Hz2+8FsInpVQOQ45EWz2FijaJll5aQWSE5JbYUsU/uAnYuKm5NM5ZgBH9HhniQ==}
+  /@nanostores/query@0.2.10(nanostores@0.10.3):
+    resolution: {integrity: sha512-ZPEKazgGRy6jCjoIHz42Kuj8GsKFdcd+apTeG3JeEDoYvR6YqmSWt8o1TksUXfiGYz/nxe8fvcantovucUaKSQ==}
     engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
     peerDependencies:
-      nanostores: '>=0.10'
+      nanostores: '>0.7'
     dependencies:
-      nanoevents: 9.0.0
-      nanostores: 0.11.3
+      nanoevents: 8.0.0
+      nanostores: 0.10.3
     dev: false
 
-  /@nanostores/react@0.8.0(nanostores@0.11.3)(react@18.3.1):
-    resolution: {integrity: sha512-MhbVB7NQLboq/Z9fRTDen9zib/YCffe6mn+3Xg5MOYByMX5Xx98SOZjk/Nd3yvOd/g7GjlQqwXj0KF2lPb6CEQ==}
+  /@nanostores/react@0.7.3(nanostores@0.10.3)(react@18.3.1):
+    resolution: {integrity: sha512-/XuLAMENRu/Q71biW4AZ4qmU070vkZgiQ28gaTSNRPm2SZF5zGAR81zPE1MaMB4SeOp6ZTst92NBaG75XSspNg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
       react: '>=18.0.0'
     dependencies:
-      nanostores: 0.11.3
+      nanostores: 0.10.3
       react: 18.3.1
     dev: false
 
@@ -1381,7 +1381,7 @@ packages:
       '@streamlayer/sl-eslib': ^5.123.1
       nanostores: ^0.10.3
     dependencies:
-      '@bufbuild/protobuf': 2.2.0
+      '@bufbuild/protobuf': 1.10.0
       '@fastify/deepmerge': 2.0.0
       '@streamlayer/sdk-web-api': 1.5.0(@bufbuild/protobuf@2.2.0)(@nanostores/query@0.3.4)(@streamlayer/sdk-web-types@1.6.0)(nanostores@0.11.3)(pino@9.4.0)
       '@streamlayer/sdk-web-core': 1.4.0(@nanostores/query@0.3.4)(@streamlayer/sdk-web-api@1.5.0)(@streamlayer/sdk-web-interfaces@1.1.12)(@streamlayer/sdk-web-logger@1.0.17)(@streamlayer/sdk-web-storage@1.0.17)(@streamlayer/sdk-web-types@1.6.0)(@streamlayer/sl-eslib@5.123.1)(nanostores@0.11.3)
@@ -1435,8 +1435,8 @@ packages:
       '@streamlayer/sdk-web-types': 1.6.0(@bufbuild/protobuf@2.2.0)(@streamlayer/sl-eslib@5.123.1)
       '@types/lodash.throttle': 4.1.9
       lodash.throttle: 4.1.1
-      nanoid: 5.0.7
-      nanostores: 0.11.3
+      nanoid: 3.3.7
+      nanostores: 0.10.3
       pino: 9.4.0
       react-auth-code-input: 3.2.1(react@18.3.1)
       react-countdown-circle-timer: 3.2.1(react@18.3.1)
@@ -3221,6 +3221,10 @@ packages:
     dependencies:
       function-bind: 1.1.2
 
+  /hls.js@1.5.16:
+    resolution: {integrity: sha512-+wAWr4aeRq9ODN8/Vgz0Cee1Cw6Ysr7vyEkZJCwOJYNwlld7CNmhKE+dLwfpUO2UuotYLGF0of6UFiN6zA7mig==}
+    dev: false
+
   /hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
@@ -4131,25 +4135,18 @@ packages:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
 
-  /nanoevents@9.0.0:
-    resolution: {integrity: sha512-X8pU7IOpgKXVLPxYUI55ymXc8XuBE+uypfEyEFBtHkD1EX9KavYTVc+vXZHFyHKzA1TaZoVDqklLdQBBrxIuAw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
+  /nanoevents@8.0.0:
+    resolution: {integrity: sha512-bYYwNCdNc5ea6/Lwh1uioU1/7aaKa3EPmNQ2weTm8PWSpbWrsaWHePe0Zq4SF+D3F3JX3cn+QdktOPCf1meOqw==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     dev: false
 
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: true
 
-  /nanoid@5.0.7:
-    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-    dev: false
-
-  /nanostores@0.11.3:
-    resolution: {integrity: sha512-TUes3xKIX33re4QzdxwZ6tdbodjmn3tWXCEc1uokiEmo14sI1EaGYNs2k3bU2pyyGNmBqFGAVl6jAGWd06AVIg==}
+  /nanostores@0.10.3:
+    resolution: {integrity: sha512-Nii8O1XqmawqSCf9o2aWqVxhKRN01+iue9/VEd1TiJCr9VT5XxgPFbF1Edl1XN6pwJcZRsl8Ki+z01yb/T/C2g==}
     engines: {node: ^18.0.0 || >=20.0.0}
     dev: false
 

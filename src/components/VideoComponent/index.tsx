@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 
 type VideoComponentProps = {
     src: string
+    hlsDebug?: boolean
     muted?: boolean
     loop?: boolean
     playsInline?: boolean
@@ -11,15 +12,15 @@ type VideoComponentProps = {
     style?: { [key: string]: string }
   }
 
-export const VideoComponent: React.FC<VideoComponentProps> = ({src, muted = true, loop = true, playsInline = true, autoPlay = true, style = {}}) => {
+export const VideoComponent: React.FC<VideoComponentProps> = ({src, hlsDebug, muted = true, loop = true, playsInline = true, autoPlay = true, style = {}}) => {
     const videoRef = useRef() as React.RefObject<HTMLVideoElement>;
 
     useEffect(()=>{
-      const hls = new Hls({
-        "debug": true
-      });
-
       if (Hls.isSupported() && videoRef.current) {
+        const hls = new Hls({
+          "debug": !!hlsDebug
+        });
+
         hls.loadSource(src);
         hls.attachMedia(videoRef.current)
 

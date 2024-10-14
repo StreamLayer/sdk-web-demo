@@ -1,4 +1,5 @@
 import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
+// import { StreamLayerSDKInsight } from '@streamlayer/react/insight'
 import '@streamlayer/react/style.css'
 import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer, Notification } from './styles'
 import { useCallback, useState } from 'react'
@@ -34,6 +35,10 @@ function App() {
   }, [])
 
   const toggleHasPromo: OnContentActivateCallback = (params) => {
+    if (params.type !== 'advertisement') {
+      return
+    }
+
     if (params.stage === 'activate') {
       setNotification(!!params.hasNotification)
       setPromo(params)
@@ -50,8 +55,7 @@ function App() {
   return (
     <Container>
       <NavBar mode={mode} toggleMode={toggleMode} />
-      <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} onContentActivate={toggleHasPromo}>
-        <div style={{ display: 'none' }}><StreamLayerSDKAdvertisement event={EVENT_ID} persistent /></div>
+      <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} event={EVENT_ID} onContentActivate={toggleHasPromo}>
         <AppContainer>
           <VideoContainer style={showPromo && mode === 'l-bar' ? { aspectRatio: 'initial' } : {}}>
             <Video
@@ -64,28 +68,31 @@ function App() {
             />
             {showPromo && mode === 'l-bar' && (
               <Banner className="Demo-Banner">
-                <StreamLayerSDKAdvertisement event={EVENT_ID} banner='bottom' persistent />
+                <StreamLayerSDKAdvertisement banner='bottom' persistent />
               </Banner>
             )}
             {showPromo && mode === 'overlay' && (
               <Overlay className="Demo-Overlay">
-                <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
+                <StreamLayerSDKAdvertisement persistent />
               </Overlay>
             )}
             {notification && <Notification className="Demo-Notification" onClick={showAdByNotification}>
-              <StreamLayerSDKAdvertisement event={EVENT_ID} notification persistent />
+              <StreamLayerSDKAdvertisement notification persistent />
             </Notification>}
           </VideoContainer>
           {showPromo && (mode === 'side-panel' || mode === 'l-bar') && (
             <SideBar className="Demo-SideBar">
-              <StreamLayerSDKAdvertisement event={EVENT_ID} sidebar='right' persistent />
+              <StreamLayerSDKAdvertisement sidebar='right' persistent />
             </SideBar>
           )}
           {showPromo && (
             <SideBarOverlay className="Demo-SideBarOverlay">
-              <StreamLayerSDKAdvertisement event={EVENT_ID} persistent />
+              <StreamLayerSDKAdvertisement persistent />
             </SideBarOverlay>
           )}
+          {/* <SideBar className="Demo-SideBar">
+            <StreamLayerSDKInsight persistent />
+          </SideBar> */}
         </AppContainer>
       </StreamLayerProvider>
     </Container>

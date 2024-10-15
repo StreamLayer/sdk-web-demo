@@ -4,24 +4,24 @@ import { useEffect, useRef, useState } from 'react'
 import { useStreamLayer } from "@streamlayer/react"
 
 type VideoComponentProps = {
-    src: string
+    src?: string
     style?: { [key: string]: string }
   }
 
-export const VideoComponent: React.FC<VideoComponentProps> = ({ src, style = {} }) => {
+export const VideoComponent: React.FC<VideoComponentProps> = ({ src = 'https://storage.googleapis.com/cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4', style = {} }) => {
   const videoRef = useRef() as React.RefObject<HTMLVideoElement>;
   const sdk = useStreamLayer()
   const [streamSrc, setStreamSrc] = useState('')
 
   useEffect(() => {
     if (sdk) {
-      sdk.streamSummary().fetch().then((summary) => {
-        setStreamSrc(summary?.summary?.stream || src)
-      }).catch(() => {
-        setStreamSrc(src)
+      return sdk.streamSummary().subscribe((value) => {
+        if (value.loading === false && value.error === undefined && value.data) {
+          setStreamSrc(value.data.summary?.stream ? `${value.data.summary.stream}` : src)
+        }
       })
     }
-  }, [sdk])
+  }, [sdk, src])
 
   useEffect(()=>{
     if (streamSrc && streamSrc.includes('m3u8')) {
@@ -34,13 +34,18 @@ export const VideoComponent: React.FC<VideoComponentProps> = ({ src, style = {} 
         hls.attachMedia(videoRef.current)
 
         hls.on(Hls.Events.ERROR, (err) => {
+          setStreamSrc(src)
           console.log(err)
         });
       } else {
-        console.log('load')
+        setStreamSrc(src)
       }
     }
-  }, [streamSrc])
+  }, [streamSrc, src])
+
+  if (!streamSrc) {
+    return null
+  }
 
   return (
     <Video

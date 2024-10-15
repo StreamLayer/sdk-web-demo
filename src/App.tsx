@@ -71,7 +71,6 @@ function App() {
         <AppContainer>
           <VideoContainer style={videoContainerStyle}>
             <VideoComponent
-              src='https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8'
               style={showPromo && mode === 'l-bar' ? { maxHeight: 'calc(100dvh - 95px)' } : {}}
             />
             {showPromo && mode === 'l-bar' && (

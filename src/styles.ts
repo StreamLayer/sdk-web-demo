@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-const breakpoints = (value: string) => `
+export const breakpoints = (value: string) => `
     @media only screen and (max-width: 1024px) {
         ${value}
     }
@@ -20,17 +20,6 @@ export const Container = styled.div`
     width: 100dvw;
     height: 100dvh;
     background: rgba(0, 22, 43, 0.90);
-`
-
-export const Video = styled.video`
-    object-fit: contain;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-
-    ${breakpoints(`
-        max-width: 100dvw;
-        max-height: 100dvh;
-    `)}
 `
 
 export const VideoContainer = styled.div`

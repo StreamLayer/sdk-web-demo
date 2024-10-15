@@ -1,10 +1,12 @@
 import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
 // import { StreamLayerSDKInsight } from '@streamlayer/react/insight'
 import '@streamlayer/react/style.css'
-import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, Video, VideoContainer, Notification } from './styles'
+import { AppContainer, Banner, Container, Overlay, SideBar, SideBarOverlay, VideoContainer, Notification } from './styles'
 import { useCallback, useState } from 'react'
 import { StreamLayerSDKAdvertisement } from './SDK'
 import { NavBar } from './NavBar'
+import { VideoComponent } from './components/VideoComponent'
+
 
 const searchParams = new URLSearchParams(window.location.search)
 
@@ -52,18 +54,23 @@ function App() {
     setNotification(false)
   }
 
+  let videoContainerStyle: any = {}
+
+  if (showPromo && mode === 'l-bar') {
+    videoContainerStyle.aspectRatio = 'initial'
+  }
+
+  if (!showPromo || mode === 'overlay') {
+    videoContainerStyle.height = '100%'
+  }
+
   return (
     <Container>
       <NavBar mode={mode} toggleMode={toggleMode} />
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} event={EVENT_ID} onContentActivate={toggleHasPromo}>
         <AppContainer>
-          <VideoContainer style={showPromo && mode === 'l-bar' ? { aspectRatio: 'initial' } : {}}>
-            <Video
-              src="https://storage.googleapis.com/cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4"
-              muted
-              autoPlay={true}
-              loop
-              playsInline
+          <VideoContainer style={videoContainerStyle}>
+            <VideoComponent
               style={showPromo && mode === 'l-bar' ? { maxHeight: 'calc(100dvh - 95px)' } : {}}
             />
             {showPromo && mode === 'l-bar' && (

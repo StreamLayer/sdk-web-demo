@@ -1,24 +1,33 @@
 import Hls from "hls.js";
 import { Video} from './styles'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useStreamLayer } from "@streamlayer/react"
 
 type VideoComponentProps = {
     src: string
-    hlsDebug?: boolean
-    muted?: boolean
-    loop?: boolean
-    playsInline?: boolean
-    autoPlay?: boolean
     style?: { [key: string]: string }
   }
 
-export const VideoComponent: React.FC<VideoComponentProps> = ({src, hlsDebug, muted = true, loop = true, playsInline = true, autoPlay = true, style = {}}) => {
-    const videoRef = useRef() as React.RefObject<HTMLVideoElement>;
+export const VideoComponent: React.FC<VideoComponentProps> = ({ src, style = {} }) => {
+  const videoRef = useRef() as React.RefObject<HTMLVideoElement>;
+  const sdk = useStreamLayer()
+  const [streamSrc, setStreamSrc] = useState('')
 
-    useEffect(()=>{
+  useEffect(() => {
+    if (sdk) {
+      sdk.streamSummary().fetch().then((summary) => {
+        setStreamSrc(summary?.summary?.stream || src)
+      }).catch(() => {
+        setStreamSrc(src)
+      })
+    }
+  }, [sdk])
+
+  useEffect(()=>{
+    if (streamSrc && streamSrc.includes('m3u8')) {
       if (Hls.isSupported() && videoRef.current) {
         const hls = new Hls({
-          "debug": !!hlsDebug
+          "debug": false
         });
 
         hls.loadSource(src);
@@ -30,17 +39,18 @@ export const VideoComponent: React.FC<VideoComponentProps> = ({src, hlsDebug, mu
       } else {
         console.log('load')
       }
-    }, [src])
+    }
+  }, [streamSrc])
 
-    return (
-      <Video
-        src={src}
-        muted={muted}
-        autoPlay={autoPlay}
-        loop={loop}
-        playsInline={playsInline}
-        ref={videoRef}
-        style={style}
-      />
-    )
-  }
+  return (
+    <Video
+      src={streamSrc}
+      ref={videoRef}
+      style={style}
+      muted
+      autoPlay
+      loop
+      playsInline
+    />
+  )
+}

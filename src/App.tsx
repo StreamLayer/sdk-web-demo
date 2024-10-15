@@ -54,12 +54,22 @@ function App() {
     setNotification(false)
   }
 
+  let videoContainerStyle: any = {}
+
+  if (showPromo && mode === 'l-bar') {
+    videoContainerStyle.aspectRatio = 'initial'
+  }
+
+  if (!showPromo || mode === 'overlay') {
+    videoContainerStyle.height = '100%'
+  }
+
   return (
     <Container>
       <NavBar mode={mode} toggleMode={toggleMode} />
       <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} event={EVENT_ID} onContentActivate={toggleHasPromo}>
         <AppContainer>
-          <VideoContainer style={showPromo ? mode === 'l-bar' ? { aspectRatio: 'initial' } : {} : {width: '100%', height: '100%'}}>
+          <VideoContainer style={videoContainerStyle}>
             <VideoComponent
               src='https://205101.global.ssl.fastly.net/64e4ef822551090422066aca/live_d6f5425041ce11ee85198d2de786993e/index.m3u8'
               style={showPromo && mode === 'l-bar' ? { maxHeight: 'calc(100dvh - 95px)' } : {}}

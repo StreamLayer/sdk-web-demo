@@ -8,7 +8,7 @@ type VideoComponentProps = {
     style?: { [key: string]: string }
   }
 
-export const VideoComponent: React.FC<VideoComponentProps> = ({ src = 'https://storage.googleapis.com/cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4', style = {} }) => {
+export const VideoComponent: React.FC<VideoComponentProps> = ({ src = 'https://cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4', style = {} }) => {
   const videoRef = useRef() as React.RefObject<HTMLVideoElement>;
   const sdk = useStreamLayer()
   const [streamSrc, setStreamSrc] = useState('')
@@ -30,12 +30,11 @@ export const VideoComponent: React.FC<VideoComponentProps> = ({ src = 'https://s
           "debug": false
         });
 
-        hls.loadSource(src);
+        hls.loadSource(streamSrc);
         hls.attachMedia(videoRef.current)
 
-        hls.on(Hls.Events.ERROR, (err) => {
+        hls.on(Hls.Events.ERROR, () => {
           setStreamSrc(src)
-          console.log(err)
         });
       } else {
         setStreamSrc(src)

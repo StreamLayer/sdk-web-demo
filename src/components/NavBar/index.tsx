@@ -1,5 +1,6 @@
+import { IMode } from "../../App"
+import { STUDIO_LINK } from "../../config"
 import { ControlButton, Controls, ControlsSelector, ControlsSelectorContainer, LinkToStudio, Logo, NavBarContainer, ShowMenuBtn } from "./styles"
-import { IMode, STUDIO_LINK } from './App'
 
 export const NavBar: React.FC<{ mode: IMode, toggleMode: (e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent ) => void }> = ({ mode, toggleMode }) => {
     return (

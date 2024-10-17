@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
-import { useCallback, useEffect, useRef } from 'react'
-import { breakpoints, breakpointsPortrait } from './styles'
+import { breakpoints, breakpointsPortrait } from '../../breakpoints'
 
 const IS_DEBUG = process.env.SL_DEBUG === 'true'
 
-const Container = styled.div`
+export const Container = styled.div`
   ${IS_DEBUG && 'background: green;'}
   width: 100%;
   height: 100%;
@@ -45,7 +44,7 @@ const Container = styled.div`
   `)}
 `
 
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   ${IS_DEBUG && 'background: blue;'}
   flex: 1 0 auto;
   display: flex;
@@ -54,7 +53,7 @@ const ContentContainer = styled.div`
   transition: width .5s ease;
 `
 
-const Sidebar = styled.div`
+export const Sidebar = styled.div`
   ${IS_DEBUG && 'background: orange;'}
 
   transition: width .5s ease;
@@ -64,7 +63,7 @@ const Sidebar = styled.div`
   `)}
 `
 
-const SideBarOverlay = styled.div`
+export const SideBarOverlay = styled.div`
   ${IS_DEBUG && 'background: purple;'}
   display: none;
 
@@ -84,14 +83,14 @@ const SideBarOverlay = styled.div`
   `)}
 `
 
-const Banner = styled.div`
+export const Banner = styled.div`
   ${IS_DEBUG && 'background: yellow;'}
   width: 100%;
 
   transition: height .5s ease;
 `
 
-const VideoContainer = styled.div`
+export const VideoContainer = styled.div`
   ${IS_DEBUG && 'background: red;'}
   flex: 1 0 auto;
   display: flex;
@@ -101,19 +100,19 @@ const VideoContainer = styled.div`
   transition: height .5s ease;
 `
 
-const VideoBox = styled.div`
+export const VideoBox = styled.div`
   width: 100%;
   aspect-ratio: 16/9;
   position: relative;
 `
 
-const VideoPlayer = styled.div`
+export const VideoPlayer = styled.div`
   ${IS_DEBUG && 'background: black;'}
   position: var(--video-player-position);
   inset: 0;
 `
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
    position: absolute;
     bottom: 41px;
     left: 56px;
@@ -180,7 +179,7 @@ const Overlay = styled.div`
     `)}
 `
 
-const Notification = styled.div`
+export const Notification = styled.div`
   position: absolute;
   bottom: 20px;
   left: 56px;
@@ -203,89 +202,3 @@ const Notification = styled.div`
       margin-right: 8px;
   `)}
 `
-
-type SDKLayoutProps = {
-  mode: 'side-panel' | 'l-bar' | 'overlay' | 'off'
-  sidebar?: React.ReactNode
-  banner?: React.ReactNode
-  video?: React.ReactNode
-  overlay?: React.ReactNode
-  notification?: React.ReactNode
-}
-
-export const SDKLayout: React.FC<SDKLayoutProps> = ({ mode, sidebar, overlay, notification, banner, video }) => {
-  const videoContainerRef = useRef<HTMLDivElement>(null)
-  const videoBoxRef = useRef<HTMLDivElement>(null)
-
-  const updateAspectRatio = useCallback(() => {
-    const videoBoxElement = videoBoxRef.current
-    const videoContainerElement = videoContainerRef.current
-
-    if (!videoBoxElement || !videoContainerElement) {
-      return
-    }
-
-    const { width, height } = videoBoxElement.getBoundingClientRect()
-    const { width: pwidth, height: pheight } = videoContainerElement.getBoundingClientRect()
-
-    if (width > pwidth || height > pheight) {
-      if (videoBoxElement.style.width === '100%') {
-        videoBoxElement.style.height = '100%'
-        videoBoxElement.style.width = 'auto'
-      } else {
-        videoBoxElement.style.width = '100%'
-        videoBoxElement.style.height = 'auto'
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (videoContainerRef.current) {
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.contentBoxSize) {
-            updateAspectRatio()
-          }
-        }
-      });
-
-      resizeObserver.observe(videoContainerRef.current)
-
-      return () => {
-        resizeObserver.disconnect()
-      }
-    }
-  }, [])
-
-  useEffect(updateAspectRatio)
-
-  return (
-    <Container className="Container">
-      <ContentContainer className="ContentContainer" style={{
-        width: mode !== 'off' ? 'calc(100% - var(--sidebar-width))' : '100%',
-      }}>
-        <VideoContainer className="VideoContainer" ref={videoContainerRef} style={{
-          height: mode === 'l-bar' ? 'calc(100% - var(--banner-height))' : '100%',
-        }}>
-          <VideoBox ref={videoBoxRef} className="VideoBox">
-            <VideoPlayer className="VideoPlayer">{video}</VideoPlayer>
-          </VideoBox>
-        </VideoContainer>
-        <Banner className="Banner" style={{
-          height: mode === 'l-bar' ? 'var(--banner-height)' : '0px',
-          padding: mode === 'l-bar' ? 'var(--banner-padding)' : '0px',
-        }}>
-          {mode === 'l-bar' && banner}
-        </Banner>
-        {notification && <Notification>{notification}</Notification>}
-        {mode === 'overlay' && <Overlay>{overlay}</Overlay>}
-      </ContentContainer>
-      <Sidebar style={{ width: mode === 'l-bar' || mode === 'side-panel' ? 'var(--sidebar-width)' : '0px' }} className="Sidebar">
-        {(mode === 'l-bar' || mode === 'side-panel') && sidebar}
-      </Sidebar>
-      {mode !== 'off' && <SideBarOverlay className="Demo-SideBarOverlay">
-        {overlay}
-      </SideBarOverlay>}
-    </Container>
-  )
-}

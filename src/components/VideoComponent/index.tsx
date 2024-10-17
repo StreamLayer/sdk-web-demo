@@ -1,14 +1,10 @@
 import Hls from "hls.js";
-import { Video} from './styles'
+import { Preload, Video} from './styles'
 import { useEffect, useRef, useState } from 'react'
 import { useStreamLayer } from "@streamlayer/react"
+import { FALLBACK_VIDEO } from "../../config"
 
-type VideoComponentProps = {
-    src?: string
-    style?: { [key: string]: string }
-  }
-
-export const VideoComponent: React.FC<VideoComponentProps> = ({ src = 'https://cdn.streamlayer.io/assets/sdk-web/Own%20The%20Game%201080p%20RF18.mp4', style = {} }) => {
+export const VideoComponent: React.FC<{ src?: string }> = ({ src = FALLBACK_VIDEO }) => {
   const videoRef = useRef() as React.RefObject<HTMLVideoElement>;
   const sdk = useStreamLayer()
   const [streamSrc, setStreamSrc] = useState('')
@@ -43,14 +39,13 @@ export const VideoComponent: React.FC<VideoComponentProps> = ({ src = 'https://c
   }, [streamSrc, src])
 
   if (!streamSrc) {
-    return null
+    return <Preload><img src="https://cdn.streamlayer.io/sdk-web-demo/loader.png" /></Preload>
   }
 
   return (
     <Video
       src={streamSrc}
       ref={videoRef}
-      style={style}
       muted
       autoPlay
       loop

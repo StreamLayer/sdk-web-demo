@@ -1,22 +1,14 @@
-import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
-// import { StreamLayerSDKInsight } from '@streamlayer/react/insight'
-import '@streamlayer/react/style.css'
-import { AppContainer, Container } from './styles'
 import { useCallback, useState } from 'react'
-import { StreamLayerSDKAdvertisement } from './SDK'
-import { NavBar } from './NavBar'
+import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
+
+import { StreamLayerSDKAdvertisement } from './components/StreamLayerSDKAdvertisement'
+import { NavBar } from './components/NavBar'
 import { VideoComponent } from './components/VideoComponent'
-import { SDKLayout } from './SDKLayout'
+import { SDKLayout } from './components/SDKLayout'
 
-const searchParams = new URLSearchParams(window.location.search)
-
-const SDK_KEY = searchParams.get('sdk_key') || process.env.VITE_SDK_KEY || ''
-const PRODUCTION = searchParams.get('production') === null
-  ? process.env.VITE_PRODUCTION === 'true'
-  : searchParams.get('production') === 'true'
-export const EVENT_ID = searchParams.get('event_id') || process.env.VITE_EVENT_ID || ''
-
-export const STUDIO_LINK = PRODUCTION ? `https://studio.streamlayer.io/events/all/id/${EVENT_ID}/moderation` : `https://studio.next.streamlayer.io/events/all/id/${EVENT_ID}/moderation`
+import { AppContainer, Container } from './styles'
+import '@streamlayer/react/style.css'
+import { EVENT_ID, SDK_KEY, PRODUCTION } from './config'
 
 export type IMode = 'side-panel' | 'l-bar' | 'overlay' | 'off'
 

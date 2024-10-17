@@ -10,8 +10,8 @@ export const Preload = styled.div`
     width: 100%;
     padding-top: 28.125%;
     padding-bottom: 28.125%;
-    background: black;
     text-align: center;
+
     > img {
         width: 60px;
         height: 60px;

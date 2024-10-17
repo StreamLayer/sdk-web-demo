@@ -1,98 +1,77 @@
-import './App.css'
-import { useState } from 'react'
-import { StreamLayerProvider, StreamLayerSDKReact, DeepLinkCallback, VideoPlayerCallback } from '@streamlayer/react'
-import { StreamLayerSDKPoints } from '@streamlayer/react/points'
-import { StreamLayerSDKAdvertisement } from '@streamlayer/react/advertisement'
-import { StreamLayerLogin } from '@streamlayer/react/auth'
+import { useCallback, useState } from 'react'
+import { StreamLayerProvider, ContentActivateParams, OnContentActivateCallback } from '@streamlayer/react'
+
+import { StreamLayerSDKAdvertisement } from './components/StreamLayerSDKAdvertisement'
+import { NavBar } from './components/NavBar'
+import { VideoComponent } from './components/VideoComponent'
+import { SDKLayout } from './components/SDKLayout'
+
+import { AppContainer, Container } from './styles'
 import '@streamlayer/react/style.css'
+import { EVENT_ID, SDK_KEY, PRODUCTION } from './config'
 
-const SDK_KEY = process.env.VITE_SDK_KEY || ''
-const PRODUCTION = process.env.VITE_PRODUCTION === 'true'
-const EVENT_ID = process.env.VITE_EVENT_ID || ''
-
-const cb: DeepLinkCallback = (params) => {
-  console.log('DeepLinkUrlParams', params)
-  // enable FG+
-}
-
-type VideoPlayerData = {
-  muted: boolean
-}
-
-const toggleVideoVolume: VideoPlayerCallback = ({ muted }: VideoPlayerData) => {
-  console.log('ToggleVideoVolume', muted)
-  const player = document.getElementsByTagName('video')[0] as HTMLVideoElement
-
-  if (muted) {
-    player.volume = 0
-  } else {
-    player.volume = 1
-  }
-}
+export type IMode = 'side-panel' | 'l-bar' | 'overlay' | 'off'
 
 function App() {
-  const [user, setUser] = useState({ token: '', schema: '' })
-  const [event, setEventId] = useState('4352')
+  const [mode, setMode] = useState<IMode>('side-panel')
+  const [promo, setPromo] = useState<ContentActivateParams>()
+  const [notification, setNotification] = useState(false)
+  const showPromo = promo && !notification
 
-  const submitUser = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
+  const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
+    if (e.target instanceof HTMLButtonElement) {
+      setMode(e.target.name as IMode)
+    }
 
-    const token = data.get('token') as string
-    const schema = data.get('schema') as string
+    if (e.target instanceof HTMLSelectElement) {
+      setMode(e.target.value as IMode)
+    }
+  }, [])
 
-    setUser({ token, schema })
+  const toggleHasPromo: OnContentActivateCallback = (params) => {
+    if (params.type !== 'advertisement') {
+      return
+    }
+
+    if (params.stage === 'activate') {
+      setNotification(!!params.hasNotification)
+      setPromo(params)
+    } else {
+      setPromo(undefined)
+      setNotification(false)
+    }
   }
 
-  const activateEvent = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
+  const showAdByNotification = () => {
+    setNotification(false)
+  }
 
-    const event = data.get('event') as string
+  let videoContainerStyle: any = {}
 
-    setEventId(event)
+  if (showPromo && mode === 'l-bar') {
+    videoContainerStyle.aspectRatio = 'initial'
+  }
+
+  if (!showPromo || mode === 'overlay') {
+    videoContainerStyle.height = '100%'
   }
 
   return (
-    <div className='app-div'>
-      <div className='auth-form'>
-        <form onSubmit={submitUser}>
-          <div>
-            <label htmlFor="token">token</label>
-            <input type="text" id="token" name="token" />
-          </div>
-          <div>
-            <label htmlFor="schema">schema</label>
-            <input type="text" id="schema" name="schema" />
-          </div>
-          <div>
-            <button type="submit">submit</button>
-          </div>
-        </form>
-        <form onSubmit={activateEvent}>
-          <div>
-            <label htmlFor="event">event</label>
-            <input type="text" id="event" name="event" defaultValue={EVENT_ID} />
-          </div>
-          <div>
-            <button type="submit">activate</button>
-          </div>
-        </form>
-      </div>
-
-      <StreamLayerProvider onContentActivate={(params) => console.log('content action', params)} sdkKey={SDK_KEY} production={PRODUCTION} onDeepLinkHandled={cb} videoPlayerController={toggleVideoVolume}>
-        <div className='points'>
-          <StreamLayerSDKPoints />
-        </div>
-        <StreamLayerLogin token={user.token} schema={user.schema} />
-        <StreamLayerSDKReact event={event} />
-        <div className="advertisement">
-          <StreamLayerSDKAdvertisement event={event} sidebar='left' persistent />
-          <StreamLayerSDKAdvertisement event={event} banner='bottom' persistent />
-          <StreamLayerSDKAdvertisement event={event} persistent />
-        </div>
+    <Container>
+      <NavBar mode={mode} toggleMode={toggleMode} />
+      <StreamLayerProvider sdkKey={SDK_KEY} production={PRODUCTION} event={EVENT_ID} onContentActivate={toggleHasPromo}>
+        <AppContainer>
+          <SDKLayout
+            mode={showPromo ? mode : 'off'}
+            sidebar={<StreamLayerSDKAdvertisement sidebar='right' persistent />}
+            banner={<StreamLayerSDKAdvertisement banner='bottom' persistent />}
+            video={<VideoComponent />}
+            overlay={<StreamLayerSDKAdvertisement persistent />}
+            notification={notification && <div onClick={showAdByNotification}><StreamLayerSDKAdvertisement notification persistent /></div>}
+          />
+        </AppContainer>
       </StreamLayerProvider>
-    </div>
+    </Container>
   )
 }
 

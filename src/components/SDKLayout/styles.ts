@@ -89,6 +89,7 @@ export const Banner = styled.div`
   width: 100%;
 
   transition: height .5s ease;
+  box-sizing: border-box;
 `
 
 export const VideoContainer = styled.div`

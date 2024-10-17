@@ -547,6 +547,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   width: 100%;
 
   transition: height .5s ease;
+  box-sizing: border-box;
 `,$ve=Pn.div`
   ${rf&&"background: red;"}
   flex: 1 0 auto;

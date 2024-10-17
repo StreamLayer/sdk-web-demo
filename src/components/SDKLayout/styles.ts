@@ -16,7 +16,7 @@ export const Container = styled.div`
   --video-player-position: absolute;
   --transition-duration: .5s;
 
-  --adv-show-in-animation: show-in .3s ease forwards var(--transition-duration);
+  --show-in-animation: show-in .3s ease forwards var(--transition-duration);
 
   @keyframes show-in {
     from {
@@ -66,6 +66,7 @@ export const Sidebar = styled.div`
 export const SideBarOverlay = styled.div`
   ${IS_DEBUG && 'background: purple;'}
   display: none;
+  margin: auto;
 
   ${breakpointsPortrait(`
       width: 100%;

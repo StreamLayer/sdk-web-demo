@@ -482,7 +482,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   --video-player-position: absolute;
   --transition-duration: .5s;
 
-  --adv-show-in-animation: show-in .3s ease forwards var(--transition-duration);
+  --show-in-animation: show-in .3s ease forwards var(--transition-duration);
 
   @keyframes show-in {
     from {
@@ -526,6 +526,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 `,Uve=Pn.div`
   ${rf&&"background: purple;"}
   display: none;
+  margin: auto;
 
   ${Qs(`
       width: 100%;

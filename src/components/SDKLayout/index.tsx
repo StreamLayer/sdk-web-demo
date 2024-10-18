@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { Banner, Container, Notification, ContentContainer, Overlay, Sidebar, SideBarOverlay, VideoBox, VideoContainer, VideoPlayer } from './styles'
+import { Banner, Container, Notification, PointsContainer, ContentContainer, Overlay, Sidebar, SideBarOverlay, VideoBox, VideoContainer, VideoPlayer } from './styles'
 
 type SDKLayoutProps = {
   mode: 'side-panel' | 'l-bar' | 'overlay' | 'off'
@@ -8,9 +8,10 @@ type SDKLayoutProps = {
   video?: React.ReactNode
   overlay?: React.ReactNode
   notification?: React.ReactNode
+  points?: React.ReactNode
 }
 
-export const SDKLayout: React.FC<SDKLayoutProps> = ({ mode, sidebar, overlay, notification, banner, video }) => {
+export const SDKLayout: React.FC<SDKLayoutProps> = ({ mode, points, sidebar, overlay, notification, banner, video }) => {
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
 
@@ -66,6 +67,7 @@ export const SDKLayout: React.FC<SDKLayoutProps> = ({ mode, sidebar, overlay, no
         }}>
           <VideoBox ref={videoBoxRef} className="VideoBox">
             <VideoPlayer className="VideoPlayer">{video}</VideoPlayer>
+            <PointsContainer>{points}</PointsContainer>
           </VideoBox>
         </VideoContainer>
         <Banner className="Banner" style={{

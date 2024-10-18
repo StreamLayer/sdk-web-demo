@@ -204,3 +204,9 @@ export const Notification = styled.div`
       margin-right: 8px;
   `)}
 `
+
+export const PointsContainer = styled.div`
+  position: absolute;
+  top: 15px;
+  left: 15px;
+`

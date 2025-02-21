@@ -12,6 +12,26 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --nav-bar-height: 40px;
+}
+
+@media only screen and (max-width: 1024px) {
+  :root {
+    --nav-bar-height: 0px;
+  }
+}
+
+@media only screen and (max-width: 1366px) and (orientation: landscape) {
+  :root {
+    --nav-bar-height: 0px;
+  }
+}
+
+@media only screen and (max-width: 1024px) and (orientation: portrait) {
+  :root {
+    --nav-bar-height: 40px;
+  }
 }
 
 a {
@@ -25,10 +45,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: rgba(0, 22, 43, 0.90);
 }
 
 h1 {
@@ -65,5 +84,143 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+.StreamLayerSDK > .StreamLayerSDKTheme > .custom-theme {
+  --color-adv-bg-secondary: rgba(10, 14, 19, 0.85);
+  --adv-header-border: none;
+  --adv-media-row-gap: auto;
+  --adv-media-padding: 0;
+  --font-color: #090e13;
+
+  .PromoOverlayContainer {
+    backdrop-filter: blur(2px);
+  }
+
+  .PromoOverlay {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > div:last-child {
+      margin-top: 12px;
+    }
+
+    > div:nth-child(2) {
+      overflow: auto;
+    }
+  }
+
+  .SponsorText {
+    transform-origin: left center;
+  }
+
+  .AdvTitle {
+    white-space: wrap;
+    line-height: normal;
+    margin-bottom: 16px;
+    margin-top: 24px;
+  }
+
+  .AdvDescription {
+    margin-bottom: 32px;
+  }
+
+  .ClosePromoIcon {
+    transform-origin: right center;
+  }
+
+  .PromoSidebarContainer > div {
+    padding-left: 0 !important;
+  }
+
+  .BannerContainer {
+    padding: 0;
+  }
+
+  .BannerLink {
+    background-size: contain;
+
+    & > img {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    --max-notifications-width: 100%;
+
+    .AdvTitle {
+      margin-top: 18px;
+      margin-bottom: 4px;
+    }
+  }
+
+  @media only screen and (max-width: 1366px) and (orientation: landscape) {
+    .AdvTitle {
+      margin-top: 18px;
+      margin-bottom: 4px;
+    }
+
+    .AdvDescription {
+      margin-bottom: 18.5px;
+    }
+
+    /* check this style later */
+    .sl-hide-on-modal {
+      overflow-y: auto !important;
+    }
+  }
+}
+
+.app-container.dark {
+  background-color: #1A2D40;
+}
+
+.app-container.tgl {
+  .StreamLayerSDK > .StreamLayerSDKTheme > .custom-theme {
+    --color-transparent-item: #0a0e13;
+    --color-neutrals-white: #13212b;
+    --color-neutrals-white1: #1e3344;
+    --color-neutrals-gray3: rgba(255, 255, 255, 0.1);
+    --color-neutrals-gray7: #fff;
+    --color-primary-1: #fff;
+    --color-primary-2: #fff;
+    --color-neutrals-gray9: rgba(255, 255, 255, 0.8);
+    --line-height-default: 21px;
+    --insight-image-ratio: auto;
+    --font-size-default: 24px;
+    --font-size-secondary: 16px;
+    --font-size-small: 16px;
+    --font-weight-default1: 800;
+    --font-weight-default2: 700;
+    --font-weight-default3: 600;
+    --margin-title-default: 0px;
+    --adv-btn-font-size: 14px;
+    --promo-header-line-height: 20.8px;
+    --color-adv-text-primary1: #ffffff;
+    --header-padding: 15px 12px 15px 16px;
+    --row-gap-default: 20px;
+    --row-gap-default1: 4px;
+    --row-gap-default2: 17px;
+    --margin-web-link-btn: 0px 8px;
+    --padding-web-link-btn: 9px 16px;
+    --insight-content-padding: 0px 8px 0px 8px;
+    --close-icon-size: 16px;
+    --close-icon-stroke-width: 1;
+    --padding-title-default: 2px 0px;
+    --insight-image-display: flex;
+    --web-link-align-items: flex-start;
+    --web-link-column-gap: 5px;
+    --color-question-type-icon: #fff;
+    --color-primary-text: #fff;
+    --color-secondary-text: rgba(255, 255, 255, 0.7);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --adv-top-indent: 12px;
+    --adv-media-shift: 24px;
+
+    .PromoSponsorLogo {
+      border-radius: 6px;
+    }
   }
 }

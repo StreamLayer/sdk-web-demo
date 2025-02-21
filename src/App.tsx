@@ -1,98 +1,110 @@
-import './App.css'
-import { useState } from 'react'
-import { StreamLayerProvider, StreamLayerSDKReact, DeepLinkCallback, VideoPlayerCallback } from '@streamlayer/react'
+import { useCallback, useEffect, useState } from 'react'
+import { ContentActivateParams, StreamLayerProvider, StreamLayerSDKNotification } from '@streamlayer/react'
 import { StreamLayerSDKPoints } from '@streamlayer/react/points'
+import { StreamLayerSDKReact } from '@streamlayer/react'
 import { StreamLayerSDKAdvertisement } from '@streamlayer/react/advertisement'
-import { StreamLayerLogin } from '@streamlayer/react/auth'
+import { anonymous } from '@streamlayer/sdk-web-anonymous-auth'
+import { cx } from '@emotion/css'
+
+import { NavBar } from './components/NavBar'
+import { VideoComponent } from './components/VideoComponent'
+import { SDKLayout } from './components/SDKLayout'
+import { Auth } from './components/Auth'
+
+import { AppContainer, Container, PointsContainer } from './styles'
 import '@streamlayer/react/style.css'
+import { EVENT_ID, SDK_KEY, PRODUCTION } from './config'
 
-const SDK_KEY = process.env.VITE_SDK_KEY || ''
-const PRODUCTION = process.env.VITE_PRODUCTION === 'true'
-const EVENT_ID = process.env.VITE_EVENT_ID || ''
+export type IMode = 'side-panel' | 'l-bar' | 'overlay' | 'off'
+export type ITheme = 'light' | 'dark' | 'tgl'
 
-const cb: DeepLinkCallback = (params) => {
-  console.log('DeepLinkUrlParams', params)
-  // enable FG+
-}
-
-type VideoPlayerData = {
-  muted: boolean
-}
-
-const toggleVideoVolume: VideoPlayerCallback = ({ muted }: VideoPlayerData) => {
-  console.log('ToggleVideoVolume', muted)
-  const player = document.getElementsByTagName('video')[0] as HTMLVideoElement
-
-  if (muted) {
-    player.volume = 0
-  } else {
-    player.volume = 1
-  }
-}
+const plugins = new Set([anonymous])
 
 function App() {
-  const [user, setUser] = useState({ token: '', schema: '' })
-  const [event, setEventId] = useState('4352')
+  const [mode, setMode] = useState<IMode>('side-panel')
+  const [theme, setTheme] = useState<ITheme>('dark')
+  const [tabs, setTabs] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const [interacted, setInteracted] = useState(false)
 
-  const submitUser = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
+  const toggleMode = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
+    if (e.target instanceof HTMLButtonElement) {
+      setMode(e.target.name as IMode)
+    }
 
-    const token = data.get('token') as string
-    const schema = data.get('schema') as string
+    if (e.target instanceof HTMLSelectElement) {
+      setMode(e.target.value as IMode)
+    }
+  }, [])
 
-    setUser({ token, schema })
+  const toggleTheme = useCallback((e: React.MouseEvent<HTMLDivElement> | React.ChangeEvent) => {
+    if (e.target instanceof HTMLButtonElement) {
+      setTheme(e.target.name as ITheme)
+    }
+
+    if (e.target instanceof HTMLSelectElement) {
+      setTheme(e.target.value as ITheme)
+    }
+  }, [])
+
+  const toggleNavBar = ({ stage, type }: ContentActivateParams) => {
+    console.log('onContentActivate', { stage, type })
+    if (stage === 'activate' && type === 'advertisement') {
+      setTabs(true)
+    } else {
+      setTabs(false)
+    }
   }
 
-  const activateEvent = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
-
-    const event = data.get('event') as string
-
-    setEventId(event)
+  const videoPlayerController = ({ muted }: { muted: boolean }) => {
+    console.log('videoPlayerController', muted)
+    setMuted(muted)
   }
+
+  useEffect(() => {
+    const withTheme = window.localStorage.getItem('with-theme')
+    const withDebug = window.localStorage.getItem('SL_DEBUG')
+    // window.localStorage.clear()
+    if (withTheme) {
+      window.localStorage.setItem('with-theme', withTheme)
+    }
+    if (withDebug) {
+      window.localStorage.setItem('SL_DEBUG', withDebug)
+    }
+  }, [])
 
   return (
-    <div className='app-div'>
-      <div className='auth-form'>
-        <form onSubmit={submitUser}>
-          <div>
-            <label htmlFor="token">token</label>
-            <input type="text" id="token" name="token" />
-          </div>
-          <div>
-            <label htmlFor="schema">schema</label>
-            <input type="text" id="schema" name="schema" />
-          </div>
-          <div>
-            <button type="submit">submit</button>
-          </div>
-        </form>
-        <form onSubmit={activateEvent}>
-          <div>
-            <label htmlFor="event">event</label>
-            <input type="text" id="event" name="event" defaultValue={EVENT_ID} />
-          </div>
-          <div>
-            <button type="submit">activate</button>
-          </div>
-        </form>
-      </div>
-
-      <StreamLayerProvider onContentActivate={(params) => console.log('content action', params)} sdkKey={SDK_KEY} production={PRODUCTION} onDeepLinkHandled={cb} videoPlayerController={toggleVideoVolume}>
-        <div className='points'>
-          <StreamLayerSDKPoints />
-        </div>
-        <StreamLayerLogin token={user.token} schema={user.schema} />
-        <StreamLayerSDKReact event={event} />
-        <div className="advertisement">
-          <StreamLayerSDKAdvertisement event={event} sidebar='left' persistent />
-          <StreamLayerSDKAdvertisement event={event} banner='bottom' persistent />
-          <StreamLayerSDKAdvertisement event={event} persistent />
-        </div>
+    <Container className={cx('app-container', theme)} onClick={() => setInteracted(true)}>
+      <NavBar mode={mode} tabs={tabs} toggleMode={toggleMode} theme={theme} toggleTheme={toggleTheme} />
+      <StreamLayerProvider skipOnboarding themeMode={theme === 'dark' ? 'dark' : 'light'} videoPlayerController={videoPlayerController} onContentActivate={toggleNavBar} plugins={plugins as any} withAdNotification sdkKey={SDK_KEY} theme="custom-theme" production={PRODUCTION} event={EVENT_ID}>
+        <Auth />
+        <AppContainer>
+          <SDKLayout
+            mode={mode}
+            interacted={interacted}
+            points={<PointsContainer><StreamLayerSDKPoints /></PointsContainer>}
+            sidebar={(
+              <>
+                <StreamLayerSDKReact withSidebarNotification={false} />
+                <StreamLayerSDKAdvertisement sidebar='right' persistent skipTypeCheck />
+                {interacted && <StreamLayerSDKAdvertisement sidebar='right' persistent skipTypeCheck externalAd />}
+              </>
+            )}
+            banner={<StreamLayerSDKAdvertisement banner='bottom' persistent />}
+            video={<VideoComponent setInteracted={setInteracted} muted={muted} interacted={interacted} />}
+            overlay={(
+              <>
+                <StreamLayerSDKReact withSidebarNotification={false} />
+                <StreamLayerSDKAdvertisement persistent skipTypeCheck />
+                {interacted && <StreamLayerSDKAdvertisement persistent skipTypeCheck externalAd />}
+              </>
+            )}
+            appNotification={<StreamLayerSDKNotification />}
+            adNotification={<StreamLayerSDKAdvertisement notification persistent />}
+          />
+        </AppContainer>
       </StreamLayerProvider>
-    </div>
+    </Container>
   )
 }
 

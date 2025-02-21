@@ -1,8 +1,9 @@
-# StreamLayerSDK Vite integration example
+# StreamLayer integration example
 
-Find the docs at [https://streamlayer.github.io/sdk-web](https://streamlayer.github.io/sdk-web)
+Find the docs at [https://docs.streamlayer.io/docs/web-sdk-getting-started](https://docs.streamlayer.io/docs/web-sdk-getting-started)
 
 ## How to start
 
 - Install dependencies `pnpm i`
+- Create `.env` file and fill with your credentials
 - Start app `pnpm dev`

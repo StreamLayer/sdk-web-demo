@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ContentActivateParams, StreamLayerProvider, StreamLayerSDKNotification } from '@streamlayer/react'
 import { StreamLayerSDKPoints } from '@streamlayer/react/points'
 import { StreamLayerSDKReact } from '@streamlayer/react'
@@ -60,18 +60,6 @@ function App() {
     console.log('videoPlayerController', muted)
     setMuted(muted)
   }
-
-  useEffect(() => {
-    const withTheme = window.localStorage.getItem('with-theme')
-    const withDebug = window.localStorage.getItem('SL_DEBUG')
-    // window.localStorage.clear()
-    if (withTheme) {
-      window.localStorage.setItem('with-theme', withTheme)
-    }
-    if (withDebug) {
-      window.localStorage.setItem('SL_DEBUG', withDebug)
-    }
-  }, [])
 
   return (
     <Container className={cx('app-container', theme)} onClick={() => setInteracted(true)}>

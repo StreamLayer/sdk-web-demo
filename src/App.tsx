@@ -70,7 +70,7 @@ function App() {
           <SDKLayout
             mode={mode}
             interacted={interacted}
-            points={<PointsContainer><StreamLayerSDKPoints /></PointsContainer>}
+            points={<PointsContainer data-testid="PointsContainer"><StreamLayerSDKPoints /></PointsContainer>}
             sidebar={(
               <>
                 <StreamLayerSDKReact withSidebarNotification={false} />

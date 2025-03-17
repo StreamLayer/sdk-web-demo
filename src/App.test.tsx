@@ -1,14 +1,21 @@
-import { render } from "@testing-library/react";
+import { render, act, screen } from "@testing-library/react";
 import 'intersection-observer';
 import App from "./App";
 
+const wait = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+
 describe("App", () => {
   it("renders App component", async () => {
-    const {container} = render(<App />);
-    const internalContainer = container.getElementsByClassName('StreamLayerSDK')[0];
-    console.log(internalContainer.innerHTML)
+    render(<App />)
+
+    await act(() => wait(2000));
+
+    const pointsContainer = screen.getByTestId('PointsContainer');
+
+    expect(pointsContainer).toBeDefined();
+
+    const internalContainer = pointsContainer?.getElementsByClassName('StreamLayerSDK')[0];
 
     expect(internalContainer).toBeDefined();
-    expect(internalContainer.innerHTML).toEqual('wait');
   });
 });

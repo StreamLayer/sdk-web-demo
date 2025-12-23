@@ -56,9 +56,11 @@ function App() {
     }
   }
 
-  const videoPlayerController = ({ muted }: { muted: boolean }) => {
+  const videoPlayerController = ({ muted }: { muted?: boolean }) => {
     console.log('videoPlayerController', muted)
-    setMuted(muted)
+    if (muted !== undefined) {
+      setMuted(muted)
+    }
   }
 
   return (
